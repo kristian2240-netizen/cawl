@@ -28,7 +28,7 @@ Write it down. Mental notes don't survive restarts.
 | Folder | Purpose |
 |---|---|
 | `vault/01 Identity` | Persona, Rules, $0 Vow |
-| `vault/02 Memory` | Facts about Fabricator |
+| `vault/02 Memory` | Facts about Void Dragon |
 | `vault/03 Research` | Research log, sources |
 | `vault/04 Game Strategy` | Long-game design |
 | `vault/05 Projects` | Setup, build tracker |

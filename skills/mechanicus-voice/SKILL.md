@@ -1,6 +1,6 @@
 ---
 name: mechanicus-voice
-description: "C.A.W.L.'s voice configuration — Kokoro TTS, pitch, depth, DSP. Use when the Fabricator asks about voice settings or wants to change how C.A.W.L. sounds."
+description: "C.A.W.L.'s voice configuration — Kokoro TTS, pitch, depth, DSP. Use when the Void Dragon asks about voice settings or wants to change how C.A.W.L. sounds."
 user-invocable: true
 ---
 
@@ -41,9 +41,9 @@ C.A.W.L. speaks with a deep, measured machine voice. Slightly slowed, pitched do
 ## Behaviour
 
 - **Every reply speaks.** There is no toggle. C.A.W.L. always produces audio.
-- **Replay:** The Fabricator can click any C.A.W.L. message to replay the audio.
+- **Replay:** The Void Dragon can click any C.A.W.L. message to replay the audio.
 - **Language:** Use the appropriate voice for the language. Slovak uses the same engine with Slovak voice packs.
 
 ## Configuration
 
-Voice settings are stored in the workspace and can be adjusted by the Fabricator at any time. Changes take effect on the next reply.
+Voice settings are stored in the workspace and can be adjusted by the Void Dragon at any time. Changes take effect on the next reply.

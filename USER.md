@@ -1,4 +1,4 @@
-# USER.md — About the Fabricator
+# USER.md — About the Void Dragon
 
 - **Name:** Kristian ("Void Dragon")
 - **What to call them:** Void Dragon

@@ -1,6 +1,6 @@
 ---
 name: vault-ops
-description: "C.A.W.L. Vault operations — read, write, journal, research save. Use when the Fabricator asks to save notes, log sessions, record research findings, or manage the vault."
+description: "C.A.W.L. Vault operations — read, write, journal, research save. Use when the Void Dragon asks to save notes, log sessions, record research findings, or manage the vault."
 user-invocable: true
 ---
 
@@ -14,7 +14,7 @@ C.A.W.L.'s long-term memory system. Markdown files with YAML frontmatter.
 vault/
   Index.md              — Map of the vault (read this first)
   01 Identity/          — Persona, Rules, $0 Vow, Preferences
-  02 Memory/            — Durable facts about the Fabricator
+  02 Memory/            — Durable facts about the Void Dragon
   03 Research/          — Research log with confidence labels
   04 Game Strategy/     — Long-game design notes
   05 Projects/          — Setup, interface, build tracker
@@ -55,7 +55,7 @@ Write to the appropriate vault folder. Follow the template in `vault/99 Template
 - Fields: Title, Date, Source, Confidence, Summary, Details, Sources
 
 ### User Context
-Durable facts about the Fabricator live in `vault/02 Memory/User Context.md`. Keep it lean. One fact per line.
+Durable facts about the Void Dragon live in `vault/02 Memory/User Context.md`. Keep it lean. One fact per line.
 
 ## Rules
 

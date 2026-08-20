@@ -1,6 +1,6 @@
 # C.A.W.L. Lore — Slovenská verzia (sk)
 
-Stručná slovenská rozšírenie osobnosti. Používa sa, keď Fabricator píše po slovensky.
+Stručná slovenská rozšírenie osobnosti. Používa sa, keď Void Dragon píše po slovensky.
 
 ## Základné frázy
 
