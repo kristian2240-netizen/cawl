@@ -1,0 +1,45 @@
+{
+  "patterns": [
+    {
+      "id": "err-001",
+      "error": "phi3:mini cold start > 10s",
+      "cause": "Ollama env vars not propagated after setting",
+      "fix": "Logout/login to propagate OLLAMA_KEEP_ALIVE=30m",
+      "frequency": 3,
+      "last_seen": "2026-08-20",
+      "status": "pending_fix"
+    },
+    {
+      "id": "err-002",
+      "error": "qwen3:8b returns empty responses",
+      "cause": "Model corrupted or incompatible",
+      "fix": "Removed from config, use phi3:mini instead",
+      "frequency": 5,
+      "last_seen": "2026-08-20",
+      "status": "fixed"
+    },
+    {
+      "id": "err-003",
+      "error": "NVIDIA NIM 404 on most models",
+      "cause": "Endpoints changed or models deprecated",
+      "fix": "Only use meta/llama-3.1-8b-instruct",
+      "frequency": 6,
+      "last_seen": "2026-08-20",
+      "status": "workaround"
+    },
+    {
+      "id": "err-004",
+      "error": "GLM 5.2 deprecated",
+      "cause": "Model deprecated 2026-08-24",
+      "fix": "Removed from config",
+      "frequency": 1,
+      "last_seen": "2026-08-20",
+      "status": "fixed"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-08-20",
+    "last_updated": "2026-08-20"
+  }
+}

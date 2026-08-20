@@ -1,0 +1,89 @@
+{
+  "goals": [
+    {
+      "id": "goal-001",
+      "description": "Implement Tech Priest delegation system",
+      "status": "completed",
+      "priority": "high",
+      "created": "2026-08-20",
+      "completed": "2026-08-20"
+    },
+    {
+      "id": "goal-002",
+      "description": "Implement 6-tier memory system (Cognithor-style)",
+      "status": "completed",
+      "priority": "high",
+      "created": "2026-08-20",
+      "completed": "2026-08-20"
+    },
+    {
+      "id": "goal-003",
+      "description": "Implement Hands (OpenFang-style autonomous agents)",
+      "status": "completed",
+      "priority": "high",
+      "created": "2026-08-20",
+      "completed": "2026-08-20"
+    },
+    {
+      "id": "goal-004",
+      "description": "Measure before/after performance",
+      "status": "completed",
+      "priority": "medium",
+      "created": "2026-08-20",
+      "completed": "2026-08-20"
+    },
+    {
+      "id": "goal-005",
+      "description": "Add hand cron scheduling + knowledge graph search",
+      "status": "completed",
+      "priority": "high",
+      "created": "2026-08-20",
+      "completed": "2026-08-20"
+    },
+    {
+      "id": "goal-006",
+      "description": "Add API monitor, performance dashboard, learning loops",
+      "status": "completed",
+      "priority": "high",
+      "created": "2026-08-20",
+      "completed": "2026-08-20",
+      "subtasks": [
+        { "task": "Create API monitor hand", "status": "completed" },
+        { "task": "Create known-apis.json", "status": "completed" },
+        { "task": "Create performance dashboard", "status": "completed" },
+        { "task": "Create learning loops system", "status": "completed" },
+        { "task": "Create error/user/provider patterns", "status": "completed" }
+      ]
+    }
+  ],
+  "pending_actions": [
+    {
+      "action": "Logout/login to propagate Ollama env vars (cold start fix)",
+      "priority": "high",
+      "created": "2026-08-20"
+    },
+    {
+      "action": "Get API keys for experimental providers (HuggingFace, Google AI, etc.)",
+      "priority": "medium",
+      "created": "2026-08-20"
+    },
+    {
+      "action": "Test API monitor hand on first run",
+      "priority": "medium",
+      "created": "2026-08-20"
+    }
+  ],
+  "hands_status": {
+    "researcher": { "status": "active", "runs": 0, "tokens": 0, "schedule": "on-demand", "last_run": null },
+    "collector": { "status": "active", "runs": 0, "tokens": 0, "schedule": "0 */6 * * *", "last_run": null },
+    "forecaster": { "status": "active", "runs": 0, "tokens": 0, "schedule": "0 9 * * 1", "last_run": null },
+    "code-reviewer": { "status": "active", "runs": 0, "tokens": 0, "schedule": "on-demand", "last_run": null },
+    "api-monitor": { "status": "active", "runs": 0, "tokens": 0, "schedule": "0 */4 * * *", "last_run": null }
+  },
+  "performance": {
+    "fastest_provider": "Groq (393ms)",
+    "slowest_provider": "OpenRouter (915ms)",
+    "all_providers": "GREEN",
+    "recommendation": "Groq primary, Mistral overflow, Steel local, NVIDIA backup, OpenRouter batch"
+  }
+}

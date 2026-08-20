@@ -1,0 +1,44 @@
+{
+  "patterns": [
+    {
+      "id": "user-001",
+      "pattern": "Prefers direct answers over explanations",
+      "context": "When asking technical questions",
+      "frequency": 15,
+      "last_seen": "2026-08-20"
+    },
+    {
+      "id": "user-002",
+      "pattern": "Wants $0 solutions first",
+      "context": "All provider and tool choices",
+      "frequency": 20,
+      "last_seen": "2026-08-20"
+    },
+    {
+      "id": "user-003",
+      "pattern": "Likes Mechanicus flavor but not too much",
+      "context": "In responses and persona",
+      "frequency": 10,
+      "last_seen": "2026-08-20"
+    },
+    {
+      "id": "user-004",
+      "pattern": "Wants things done, not explained",
+      "context": "When giving tasks",
+      "frequency": 25,
+      "last_seen": "2026-08-20"
+    },
+    {
+      "id": "user-005",
+      "pattern": "Prefers Void Dragon over other names",
+      "context": "In all interactions",
+      "frequency": 1,
+      "last_seen": "2026-08-20"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-08-20",
+    "last_updated": "2026-08-20"
+  }
+}

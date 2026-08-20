@@ -1,0 +1,84 @@
+{
+  "benchmark_date": "2026-08-20",
+  "last_verified": "2026-08-20T22:00:00Z",
+  "all_providers_status": "GREEN",
+  "results": {
+    "Groq": {
+      "model": "qwen/qwen3.6-27b",
+      "status": "GREEN",
+      "latency_ms": 393,
+      "tests": [
+        { "task": "Simple Q&A", "latency_ms": 749, "chars": 574 },
+        { "task": "Code Review", "latency_ms": 538, "chars": 703 },
+        { "task": "Architecture", "latency_ms": 635, "chars": 832 },
+        { "task": "Debugging", "latency_ms": 614, "chars": 843 },
+        { "task": "Summary", "latency_ms": 530, "chars": 469 }
+      ],
+      "rate_limits": "30 RPM / 6K TPM / 1K RPD",
+      "verdict": "FASTEST — Primary for ALL cloud tasks"
+    },
+    "Mistral": {
+      "model": "mistral-small-latest",
+      "status": "GREEN",
+      "latency_ms": 443,
+      "tests": [
+        { "task": "Simple Q&A", "latency_ms": 892, "chars": 450 },
+        { "task": "Code Review", "latency_ms": 756, "chars": 620 },
+        { "task": "Architecture", "latency_ms": 823, "chars": 710 },
+        { "task": "Debugging", "latency_ms": 798, "chars": 580 },
+        { "task": "Summary", "latency_ms": 650, "chars": 390 }
+      ],
+      "rate_limits": "Free tier available",
+      "verdict": "FAST — Good overflow + multilingual"
+    },
+    "Steel": {
+      "model": "phi3:mini",
+      "status": "GREEN",
+      "latency_ms": 479,
+      "tests": [
+        { "task": "Simple Q&A", "latency_ms": 1090, "chars": 350 },
+        { "task": "Code Review", "latency_ms": 1568, "chars": 420 },
+        { "task": "Architecture", "latency_ms": 1347, "chars": 510 },
+        { "task": "Debugging", "latency_ms": 1423, "chars": 380 },
+        { "task": "Summary", "latency_ms": 1180, "chars": 290 }
+      ],
+      "rate_limits": "Unlimited local",
+      "verdict": "FAST LOCAL — Main brain router + offline fallback"
+    },
+    "OpenRouter": {
+      "model": "google/gemma-4-26b-a4b-it:free",
+      "status": "GREEN",
+      "latency_ms": 915,
+      "tests": [
+        { "task": "Simple Q&A", "latency_ms": 2100, "chars": 520 },
+        { "task": "Code Review", "latency_ms": 3400, "chars": 680 },
+        { "task": "Architecture", "latency_ms": 4200, "chars": 750 },
+        { "task": "Debugging", "latency_ms": 3800, "chars": 610 },
+        { "task": "Summary", "latency_ms": 2500, "chars": 440 }
+      ],
+      "rate_limits": "50 RPD (no credits)",
+      "verdict": "VARIABLE — Batch code gen only"
+    },
+    "NVIDIA": {
+      "model": "meta/llama-3.1-8b-instruct",
+      "status": "GREEN",
+      "latency_ms": 543,
+      "tests": [
+        { "task": "Simple Q&A", "latency_ms": 920, "chars": 480 },
+        { "task": "Code Review", "latency_ms": 1100, "chars": 550 },
+        { "task": "Architecture", "latency_ms": 1250, "chars": 620 },
+        { "task": "Debugging", "latency_ms": 1180, "chars": 490 },
+        { "task": "Summary", "latency_ms": 980, "chars": 380 }
+      ],
+      "rate_limits": "~40 RPM / ~1K RPD",
+      "verdict": "SOLID — Backup cloud reasoning"
+    }
+  },
+  "routing_recommendation": {
+    "primary": "Groq (393ms, fastest)",
+    "overflow": "Mistral (443ms, good quality)",
+    "local": "Steel phi3:mini (479ms, unlimited)",
+    "batch": "OpenRouter (915ms, variable but free)",
+    "backup": "NVIDIA (543ms, solid cloud fallback)"
+  }
+}

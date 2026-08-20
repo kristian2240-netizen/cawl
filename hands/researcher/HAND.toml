@@ -1,0 +1,27 @@
+[hand]
+name = "researcher"
+version = "0.1.0"
+description = "Deep autonomous researcher. Cross-references multiple sources, evaluates credibility, generates cited reports."
+schedule = "on-demand"
+
+[hand.tools]
+allowed = ["websearch", "webfetch", "filesystem"]
+denied = ["shell", "browser"]
+
+[hand.guardrails]
+read_only = true
+require_approval = false
+max_tokens_per_run = 50000
+timeout_seconds = 300
+
+[hand.output]
+directory = "hands/reports"
+format = "markdown"
+retain_days = 30
+
+[hand.dashboard]
+metrics = ["tasks_completed", "tokens_used", "sources_checked", "confidence"]
+
+[hand.model]
+primary = "Groq/qwen/qwen3.6-27b"
+fallback = "OpenRouter/google/gemma-4-26b-a4b-it:free"

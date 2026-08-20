@@ -1,0 +1,27 @@
+[hand]
+name = "collector"
+version = "0.1.0"
+description = "OSINT-style intelligence collector. Monitors targets, detects changes, tracks sentiment, builds knowledge graphs."
+schedule = "0 */6 * * *"  # Every 6 hours
+
+[hand.tools]
+allowed = ["websearch", "webfetch", "filesystem"]
+denied = ["shell", "browser"]
+
+[hand.guardrails]
+read_only = true
+require_approval = false
+max_tokens_per_run = 30000
+timeout_seconds = 180
+
+[hand.output]
+directory = "hands/reports"
+format = "markdown"
+retain_days = 7
+
+[hand.dashboard]
+metrics = ["targets_monitored", "changes_detected", "alerts_fired"]
+
+[hand.model]
+primary = "Steel/phi3:mini"
+fallback = "Groq/qwen/qwen3.6-27b"

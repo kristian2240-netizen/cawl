@@ -1,0 +1,196 @@
+{
+  "apis": [
+    {
+      "id": "groq",
+      "name": "Groq",
+      "type": "production",
+      "base_url": "https://api.groq.com/openai/v1",
+      "status_endpoint": "/models",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {
+        "rpm": 30,
+        "tpm": 6000,
+        "rpd": 1000
+      },
+      "free_tier": true,
+      "key_env_var": "GROQ_API_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "type": "production",
+      "base_url": "https://openrouter.ai/api/v1",
+      "status_endpoint": "/models",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {
+        "rpd": 50
+      },
+      "free_tier": true,
+      "key_env_var": "OPENROUTER_API_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "nvidia",
+      "name": "NVIDIA NIM",
+      "type": "production",
+      "base_url": "https://integrate.api.nvidia.com/v1",
+      "status_endpoint": "/models",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {
+        "rpm": 40,
+        "rpd": 1000
+      },
+      "free_tier": true,
+      "key_env_var": "NVIDIA_API_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "mistral",
+      "name": "Mistral",
+      "type": "production",
+      "base_url": "https://api.mistral.ai/v1",
+      "status_endpoint": "/models",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {},
+      "free_tier": true,
+      "key_env_var": "MISTRAL_API_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "huggingface",
+      "name": "HuggingFace Inference",
+      "type": "experimental",
+      "base_url": "https://api-inference.huggingface.co",
+      "status_endpoint": "/models",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {
+        "rpd": "varies"
+      },
+      "free_tier": true,
+      "key_env_var": "HF_API_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "google-ai",
+      "name": "Google AI Studio",
+      "type": "experimental",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta",
+      "status_endpoint": "/models",
+      "auth_header": "x-goog-api-key",
+      "auth_prefix": "",
+      "rate_limits": {
+        "rpd": 1500
+      },
+      "free_tier": true,
+      "key_env_var": "GOOGLE_AI_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare Workers AI",
+      "type": "experimental",
+      "base_url": "https://api.cloudflare.com/client/v4",
+      "status_endpoint": "/accounts/*/ai/models/search",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {
+        "rpd": 10000
+      },
+      "free_tier": true,
+      "key_env_var": "CF_API_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "sambanova",
+      "name": "SambaNova",
+      "type": "experimental",
+      "base_url": "https://api.sambanova.ai/v1",
+      "status_endpoint": "/models",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {
+        "rpd": 100
+      },
+      "free_tier": true,
+      "key_env_var": "SAMBANOVA_API_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "together",
+      "name": "Together.ai",
+      "type": "experimental",
+      "base_url": "https://api.together.xyz/v1",
+      "status_endpoint": "/models",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {
+        "credits": "free initial"
+      },
+      "free_tier": true,
+      "key_env_var": "TOGETHER_API_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "fireworks",
+      "name": "Fireworks AI",
+      "type": "experimental",
+      "base_url": "https://api.fireworks.ai/inference/v1",
+      "status_endpoint": "/models",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {},
+      "free_tier": true,
+      "key_env_var": "FIREWORKS_API_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "cohere",
+      "name": "Cohere",
+      "type": "experimental",
+      "base_url": "https://api.cohere.com/v2",
+      "status_endpoint": "/models",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {},
+      "free_tier": true,
+      "key_env_var": "COHERE_API_KEY",
+      "last_checked": null,
+      "status": "unknown"
+    },
+    {
+      "id": "replicate",
+      "name": "Replicate",
+      "type": "experimental",
+      "base_url": "https://api.replicate.com/v1",
+      "status_endpoint": "/models",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "rate_limits": {},
+      "free_tier": true,
+      "key_env_var": "REPLICATE_API_TOKEN",
+      "last_checked": null,
+      "status": "unknown"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-08-20",
+    "last_updated": "2026-08-20"
+  }
+}

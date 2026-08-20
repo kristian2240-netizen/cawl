@@ -1,0 +1,27 @@
+[hand]
+name = "code-reviewer"
+version = "0.1.0"
+description = "Autonomous code reviewer. Detects changes, analyzes code, finds bugs, suggests improvements."
+schedule = "on-demand"  # Triggered by code changes
+
+[hand.tools]
+allowed = ["filesystem", "shell"]
+denied = ["websearch", "webfetch", "browser"]
+
+[hand.guardrails]
+read_only = true
+require_approval = true  # Suggestions only, no auto-fixes
+max_tokens_per_run = 30000
+timeout_seconds = 180
+
+[hand.output]
+directory = "hands/reviews"
+format = "markdown"
+retain_days = 14
+
+[hand.dashboard]
+metrics = ["files_reviewed", "bugs_found", "suggestions_made"]
+
+[hand.model]
+primary = "Groq/qwen/qwen3.6-27b"
+fallback = "Steel/qwen2.5-coder:7b"

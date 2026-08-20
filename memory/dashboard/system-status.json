@@ -1,0 +1,133 @@
+{
+  "last_updated": "2026-08-20T22:30:00Z",
+  "providers": {
+    "groq": {
+      "name": "Groq",
+      "model": "qwen/qwen3.6-27b",
+      "latency_ms": {
+        "p50": 393,
+        "p99": 867,
+        "rolling_avg": 393
+      },
+      "success_rate": 0.999,
+      "rpd_used": 153,
+      "rpd_total": 1000,
+      "error_count_24h": 0,
+      "last_error": null,
+      "status": "GREEN"
+    },
+    "mistral": {
+      "name": "Mistral",
+      "model": "mistral-small-latest",
+      "latency_ms": {
+        "p50": 443,
+        "p99": 892,
+        "rolling_avg": 443
+      },
+      "success_rate": 1.0,
+      "rpd_used": 0,
+      "rpd_total": null,
+      "error_count_24h": 0,
+      "last_error": null,
+      "status": "GREEN"
+    },
+    "steel": {
+      "name": "Steel (Ollama)",
+      "model": "phi3:mini",
+      "latency_ms": {
+        "p50": 479,
+        "p99": 12113,
+        "rolling_avg": 479
+      },
+      "success_rate": 1.0,
+      "rpd_used": 0,
+      "rpd_total": null,
+      "error_count_24h": 0,
+      "last_error": null,
+      "status": "GREEN",
+      "note": "Cold start ~12s, warm ~1s"
+    },
+    "nvidia": {
+      "name": "NVIDIA NIM",
+      "model": "meta/llama-3.1-8b-instruct",
+      "latency_ms": {
+        "p50": 543,
+        "p99": 1862,
+        "rolling_avg": 543
+      },
+      "success_rate": 0.95,
+      "rpd_used": 80,
+      "rpd_total": 1000,
+      "error_count_24h": 0,
+      "last_error": null,
+      "status": "GREEN",
+      "note": "6/7 models broken"
+    },
+    "openrouter": {
+      "name": "OpenRouter",
+      "model": "google/gemma-4-26b-a4b-it:free",
+      "latency_ms": {
+        "p50": 915,
+        "p99": 4200,
+        "rolling_avg": 915
+      },
+      "success_rate": 0.98,
+      "rpd_used": 18,
+      "rpd_total": 50,
+      "error_count_24h": 0,
+      "last_error": null,
+      "status": "GREEN"
+    }
+  },
+  "hands": {
+    "researcher": {
+      "runs": 0,
+      "tokens": 0,
+      "success_rate": null,
+      "last_run": null,
+      "avg_duration_ms": null,
+      "status": "active"
+    },
+    "collector": {
+      "runs": 0,
+      "tokens": 0,
+      "success_rate": null,
+      "last_run": null,
+      "avg_duration_ms": null,
+      "status": "active"
+    },
+    "forecaster": {
+      "runs": 0,
+      "tokens": 0,
+      "success_rate": null,
+      "last_run": null,
+      "avg_duration_ms": null,
+      "status": "active"
+    },
+    "code-reviewer": {
+      "runs": 0,
+      "tokens": 0,
+      "success_rate": null,
+      "last_run": null,
+      "avg_duration_ms": null,
+      "status": "active"
+    },
+    "api-monitor": {
+      "runs": 0,
+      "tokens": 0,
+      "success_rate": null,
+      "last_run": null,
+      "avg_duration_ms": null,
+      "status": "active"
+    }
+  },
+  "system": {
+    "uptime_seconds": 0,
+    "vram_used_gb": 6.8,
+    "vram_total_gb": 8.0,
+    "models_loaded": ["phi3:mini", "qwen2.5-coder:7b"],
+    "sessions_today": 0,
+    "score": 78
+  },
+  "alerts": []
+}

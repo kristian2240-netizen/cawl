@@ -1,0 +1,122 @@
+{
+  "test_date": "2026-08-20",
+  "baseline_results": [
+    {
+      "test_id": "test-001",
+      "request": "What is 2+2?",
+      "model": "Steel/phi3:mini",
+      "route": "direct",
+      "latency_ms": 10629,
+      "success": true,
+      "notes": "Cold start — first request"
+    },
+    {
+      "test_id": "test-002",
+      "request": "Write quicksort function",
+      "model": "Steel/qwen2.5-coder:7b",
+      "route": "Delta (local)",
+      "latency_ms": 33298,
+      "success": true,
+      "response_chars": 423,
+      "notes": "Code generation — local"
+    },
+    {
+      "test_id": "test-003",
+      "request": "Review code for bugs",
+      "model": "Groq/qwen/qwen3.6-27b",
+      "route": "Alpha (Groq)",
+      "latency_ms": 1112,
+      "success": true,
+      "response_chars": 1228,
+      "notes": "Very fast — Groq LPU"
+    },
+    {
+      "test_id": "test-004",
+      "request": "Write quicksort function",
+      "model": "OpenRouter/gemma-4-26b:free",
+      "route": "Beta (OpenRouter)",
+      "latency_ms": 14178,
+      "success": true,
+      "response_chars": 714,
+      "notes": "Free tier — moderate speed"
+    },
+    {
+      "test_id": "test-005",
+      "request": "Analyze time complexity",
+      "model": "NVIDIA/deepseek-coder-6.7b",
+      "route": "Gamma (NVIDIA)",
+      "latency_ms": null,
+      "success": false,
+      "error": "404 Not Found",
+      "notes": "NVIDIA NIM free tier may have changed endpoints"
+    },
+    {
+      "test_id": "test-006",
+      "request": "Explain stack vs queue",
+      "model": "Steel/qwen3:8b",
+      "route": "local",
+      "latency_ms": 12121,
+      "success": false,
+      "response_chars": 0,
+      "notes": "Empty response — model may need different prompt format"
+    },
+    {
+      "test_id": "test-007",
+      "request": "Capital of France?",
+      "model": "Steel/phi3:mini",
+      "route": "direct (warm)",
+      "latency_ms": 9843,
+      "success": true,
+      "notes": "Warm request — still slow, VRAM contention with qwen3:8b"
+    }
+  ],
+  "summary": {
+    "working_providers": {
+      "Groq": {
+        "model": "qwen/qwen3.6-27b",
+        "latency_ms": 1112,
+        "status": "EXCELLENT",
+        "rpd_budget": 1000
+      },
+      "OpenRouter": {
+        "model": "google/gemma-4-26b-a4b-it:free",
+        "latency_ms": 14178,
+        "status": "GOOD",
+        "rpd_budget": 50
+      },
+      "Steel (phi3:mini)": {
+        "model": "phi3:mini",
+        "latency_ms": 9843,
+        "status": "SLOW (VRAM contention)",
+        "rpd_budget": "unlimited"
+      },
+      "Steel (qwen2.5-coder)": {
+        "model": "qwen2.5-coder:7b",
+        "latency_ms": 33298,
+        "status": "SLOW (local)",
+        "rpd_budget": "unlimited"
+      }
+    },
+    "broken_providers": {
+      "NVIDIA NIM": {
+        "status": "404/timeout",
+        "issue": "Free tier endpoints may have changed or models need deployment",
+        "recommendation": "Remove from tech priests or test with different model IDs"
+      }
+    },
+    "key_findings": [
+      "Groq is 10-30x faster than local models — best for reasoning/review",
+      "OpenRouter free tier works but is slower than Groq",
+      "phi3:mini cold start is ~10s, warm is ~10s (VRAM contention)",
+      "NVIDIA NIM free tier appears broken — need to investigate or remove",
+      "Local models are 10-30x slower than cloud for equivalent tasks"
+    ]
+  },
+  "recommendations": [
+    "Use Groq (Alpha) as primary cloud priest — 1.1s response time",
+    "Use OpenRouter (Beta) for code generation — 14s but free",
+    "Replace NVIDIA NIM with Groq backup or remove entirely",
+    "phi3:mini is slow for a 'main brain' — consider using Groq for routing too",
+    "Local models (Delta) are fallback only — too slow for primary use"
+  ]
+}

@@ -1,0 +1,27 @@
+[hand]
+name = "forecaster"
+version = "0.1.0"
+description = "Superforecasting engine. Collects signals, builds reasoning chains, makes predictions with confidence intervals."
+schedule = "0 9 * * 1"  # Every Monday at 9 AM
+
+[hand.tools]
+allowed = ["websearch", "webfetch", "filesystem"]
+denied = ["shell", "browser"]
+
+[hand.guardrails]
+read_only = true
+require_approval = false
+max_tokens_per_run = 40000
+timeout_seconds = 300
+
+[hand.output]
+directory = "hands/forecasts"
+format = "markdown"
+retain_days = 90
+
+[hand.dashboard]
+metrics = ["predictions_made", "accuracy_score", "brier_score"]
+
+[hand.model]
+primary = "Groq/qwen/qwen3.6-27b"
+fallback = "OpenRouter/google/gemma-4-26b-a4b-it:free"

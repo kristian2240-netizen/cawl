@@ -1,0 +1,454 @@
+{
+  "entities": [
+    {
+      "id": "main-brain",
+      "type": "model",
+      "name": "Steel/phi3:mini",
+      "properties": {
+        "role": "Main Brain Router",
+        "speed": "~53 tok/s",
+        "vram": "2.3GB",
+        "context": 128000,
+        "specialty": "Classification, routing, simple Q&A",
+        "latency_ms": 479,
+        "status": "GREEN"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "tech-priest-alpha",
+      "type": "agent",
+      "name": "Tech-Priest-Alpha",
+      "properties": {
+        "role": "Reasoning + Code Review",
+        "provider": "Groq",
+        "model": "qwen/qwen3.6-27b",
+        "rpm": 30,
+        "tpm": 6000,
+        "rpd": 1000,
+        "hardware": "LPU",
+        "latency_ms": 393,
+        "status": "GREEN — fastest provider"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "tech-priest-beta",
+      "type": "agent",
+      "name": "Tech-Priest-Beta",
+      "properties": {
+        "role": "Code Generation",
+        "provider": "OpenRouter",
+        "model": "google/gemma-4-26b-a4b-it:free",
+        "rpm": 20,
+        "rpd": 50,
+        "latency_ms": 915,
+        "cost": "$0",
+        "status": "GREEN — variable latency"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "tech-priest-gamma",
+      "type": "agent",
+      "name": "Tech-Priest-Gamma",
+      "properties": {
+        "role": "Backup Cloud Reasoning",
+        "provider": "NVIDIA NIM",
+        "model": "meta/llama-3.1-8b-instruct",
+        "rpm": 40,
+        "rpd": 1000,
+        "latency_ms": 543,
+        "cost": "$0",
+        "status": "GREEN — only working NVIDIA model"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "tech-priest-delta",
+      "type": "agent",
+      "name": "Tech-Priest-Delta",
+      "properties": {
+        "role": "Local Code + Fallback",
+        "provider": "Steel (Ollama)",
+        "model": "qwen2.5-coder:7b",
+        "rpd": "unlimited",
+        "vram": "4.5GB",
+        "latency_ms": 6400,
+        "offline": true,
+        "status": "GREEN — unlimited local"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "tech-priest-epsilon",
+      "type": "agent",
+      "name": "Tech-Priest-Epsilon",
+      "properties": {
+        "role": "Code Gen + Multilingual",
+        "provider": "Mistral",
+        "model": "mistral-small-latest",
+        "latency_ms": 443,
+        "cost": "$0",
+        "status": "GREEN — fast + cheap overflow"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "groq-provider",
+      "type": "provider",
+      "name": "Groq",
+      "properties": {
+        "rpm": 30,
+        "tpm": 6000,
+        "rpd": 1000,
+        "hardware": "LPU",
+        "speed": "very fast",
+        "latency_ms": 393,
+        "free_tier": true,
+        "status": "GREEN"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "openrouter-provider",
+      "type": "provider",
+      "name": "OpenRouter",
+      "properties": {
+        "rpm": 20,
+        "rpd": 50,
+        "latency_ms": 915,
+        "free_models": 20,
+        "cost": "$0",
+        "status": "GREEN"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "nvidia-provider",
+      "type": "provider",
+      "name": "NVIDIA NIM",
+      "properties": {
+        "rpm": 40,
+        "rpd": 1000,
+        "latency_ms": 543,
+        "models": 102,
+        "working_models": 1,
+        "cost": "$0",
+        "status": "GREEN — limited (6/7 models broken)"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "mistral-provider",
+      "type": "provider",
+      "name": "Mistral",
+      "properties": {
+        "latency_ms": 443,
+        "models": 56,
+        "cost": "$0",
+        "status": "GREEN"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "steel-provider",
+      "type": "provider",
+      "name": "Steel (Ollama)",
+      "properties": {
+        "rpd": "unlimited",
+        "local": true,
+        "offline": true,
+        "latency_ms": 479,
+        "vram": "8GB RTX 4070",
+        "status": "GREEN"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "cawl-project",
+      "type": "project",
+      "name": "C.A.W.L.",
+      "properties": {
+        "type": "Mechanicus AI Assistant",
+        "runtime": "$0",
+        "voice": "edge-tts",
+        "web_ui": "port 8123",
+        "gateway": "port 18789",
+        "user": "Void Dragon"
+      },
+      "created": "2026-08-19",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "hand-researcher",
+      "type": "hand",
+      "name": "Researcher Hand",
+      "properties": {
+        "role": "Deep autonomous research",
+        "schedule": "on-demand",
+        "status": "active",
+        "runs": 0
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "hand-collector",
+      "type": "hand",
+      "name": "Collector Hand",
+      "properties": {
+        "role": "OSINT intelligence gathering",
+        "schedule": "0 */6 * * *",
+        "status": "active",
+        "runs": 0
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "hand-forecaster",
+      "type": "hand",
+      "name": "Forecaster Hand",
+      "properties": {
+        "role": "Superforecasting with confidence intervals",
+        "schedule": "0 9 * * 1",
+        "status": "active",
+        "runs": 0
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "hand-code-reviewer",
+      "type": "hand",
+      "name": "Code Reviewer Hand",
+      "properties": {
+        "role": "Autonomous code review",
+        "schedule": "on-demand",
+        "status": "active",
+        "runs": 0
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "hand-api-monitor",
+      "type": "hand",
+      "name": "API Monitor Hand",
+      "properties": {
+        "role": "Monitor experimental APIs for free availability",
+        "schedule": "0 */4 * * *",
+        "status": "active",
+        "runs": 0
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "experimental-huggingface",
+      "type": "api",
+      "name": "HuggingFace Inference",
+      "properties": {
+        "type": "experimental",
+        "free_tier": true,
+        "rate_limit": "varies",
+        "status": "unknown"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "experimental-google-ai",
+      "type": "api",
+      "name": "Google AI Studio",
+      "properties": {
+        "type": "experimental",
+        "free_tier": true,
+        "rate_limit": "1500 RPD",
+        "status": "unknown"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "experimental-cloudflare",
+      "type": "api",
+      "name": "Cloudflare Workers AI",
+      "properties": {
+        "type": "experimental",
+        "free_tier": true,
+        "rate_limit": "10000 RPD",
+        "status": "unknown"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "experimental-sambanova",
+      "type": "api",
+      "name": "SambaNova",
+      "properties": {
+        "type": "experimental",
+        "free_tier": true,
+        "rate_limit": "100 RPD",
+        "status": "unknown"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "tech-priest-zeta",
+      "type": "agent",
+      "name": "Tech-Priest-Zeta",
+      "properties": {
+        "role": "Free Reasoning (via OpenRouter)",
+        "provider": "OpenRouter (Cerebras/NVIDIA)",
+        "model": "nemotron-3-nano-omni-30b-a3b-reasoning:free",
+        "free_tier": "Yes - 20 RPM, 50 RPD",
+        "status": "ACTIVE — via OpenRouter free tier"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "tech-priest-kappa",
+      "type": "agent",
+      "name": "Tech-Priest-Kappa",
+      "properties": {
+        "role": "Cloud Inference (Ollama ecosystem)",
+        "provider": "Ollama Cloud",
+        "model": "gpt-oss:120b",
+        "free_tier": "Light usage, level 1-2 models",
+        "status": "PENDING — needs API key"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "tech-priest-eta",
+      "type": "agent",
+      "name": "Tech-Priest-Eta",
+      "properties": {
+        "role": "Big Model Fast (400+ tok/s on 70B)",
+        "provider": "SambaNova",
+        "model": "Meta-Llama-3.3-70B-Instruct",
+        "rpd": 20,
+        "context": 131072,
+        "status": "PENDING — needs API key"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "tech-priest-theta",
+      "type": "agent",
+      "name": "Tech-Priest-Theta",
+      "properties": {
+        "role": "Massive Context (1M tokens)",
+        "provider": "Google AI",
+        "model": "gemini-2.0-flash",
+        "rpd": 1500,
+        "context": 1048576,
+        "status": "PENDING — needs API key"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "cerebras-provider",
+      "type": "provider",
+      "name": "Cerebras",
+      "properties": {
+        "rpm": 30,
+        "rpd": 900,
+        "tpm": 60000,
+        "hardware": "Wafer-Scale Engine (WSE-3)",
+        "speed": "2100 tok/s",
+        "free_tier": true,
+        "status": "PENDING — needs API key"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "sambanova-provider",
+      "type": "provider",
+      "name": "SambaNova",
+      "properties": {
+        "rpd": 20,
+        "tpm": 200000,
+        "hardware": "RDU (Reconfigurable Dataflow Unit)",
+        "speed": "400+ tok/s",
+        "free_tier": true,
+        "status": "PENDING — needs API key"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    },
+    {
+      "id": "google-ai-provider",
+      "type": "provider",
+      "name": "Google AI Studio",
+      "properties": {
+        "rpd": 1500,
+        "context": 1048576,
+        "free_tier": true,
+        "status": "PENDING — needs API key"
+      },
+      "created": "2026-08-20",
+      "lastAccessed": "2026-08-20"
+    }
+  ],
+  "relations": [
+    { "source": "tech-priest-alpha", "target": "groq-provider", "type": "bound_to", "properties": { "model": "qwen3.6-27b" } },
+    { "source": "tech-priest-beta", "target": "openrouter-provider", "type": "bound_to", "properties": { "model": "gemma-4-26b:free" } },
+    { "source": "tech-priest-gamma", "target": "nvidia-provider", "type": "bound_to", "properties": { "model": "llama-3.1-8b-instruct" } },
+    { "source": "tech-priest-delta", "target": "steel-provider", "type": "bound_to", "properties": { "model": "qwen2.5-coder:7b" } },
+    { "source": "tech-priest-epsilon", "target": "mistral-provider", "type": "bound_to", "properties": { "model": "mistral-small-latest" } },
+    { "source": "tech-priest-zeta", "target": "cerebras-provider", "type": "bound_to", "properties": { "model": "llama-3.3-70b" } },
+    { "source": "tech-priest-eta", "target": "sambanova-provider", "type": "bound_to", "properties": { "model": "llama-3.3-70b" } },
+    { "source": "tech-priest-theta", "target": "google-ai-provider", "type": "bound_to", "properties": { "model": "gemini-2.0-flash" } },
+    { "source": "main-brain", "target": "tech-priest-alpha", "type": "delegates_to", "properties": { "tasks": ["reasoning", "review"] } },
+    { "source": "main-brain", "target": "tech-priest-beta", "type": "delegates_to", "properties": { "tasks": ["code_gen", "docs"] } },
+    { "source": "main-brain", "target": "tech-priest-gamma", "type": "delegates_to", "properties": { "tasks": ["backup_cloud"] } },
+    { "source": "main-brain", "target": "tech-priest-delta", "type": "delegates_to", "properties": { "tasks": ["quick_edit", "local_fallback"] } },
+    { "source": "main-brain", "target": "tech-priest-epsilon", "type": "delegates_to", "properties": { "tasks": ["code_gen", "multilingual", "overflow"] } },
+    { "source": "main-brain", "target": "tech-priest-zeta", "type": "delegates_to", "properties": { "tasks": ["fast_reasoning", "short_completions"] } },
+    { "source": "main-brain", "target": "tech-priest-eta", "type": "delegates_to", "properties": { "tasks": ["big_model_reasoning", "deep_analysis"] } },
+    { "source": "main-brain", "target": "tech-priest-theta", "type": "delegates_to", "properties": { "tasks": ["long_context", "massive_documents"] } },
+    { "source": "hand-collector", "target": "main-brain", "type": "uses", "properties": { "for": "classification" } },
+    { "source": "hand-forecaster", "target": "tech-priest-alpha", "type": "uses", "properties": { "for": "reasoning_chains" } },
+    { "source": "hand-code-reviewer", "target": "tech-priest-alpha", "type": "uses", "properties": { "for": "code_review" } },
+    { "source": "hand-researcher", "target": "tech-priest-alpha", "type": "uses", "properties": { "for": "deep_research" } },
+    { "source": "hand-api-monitor", "target": "main-brain", "type": "uses", "properties": { "for": "api_availability_checks" } },
+    { "source": "hand-api-monitor", "target": "experimental-huggingface", "type": "monitors", "properties": { "check_interval": "4h" } },
+    { "source": "hand-api-monitor", "target": "experimental-google-ai", "type": "monitors", "properties": { "check_interval": "4h" } },
+    { "source": "hand-api-monitor", "target": "experimental-cloudflare", "type": "monitors", "properties": { "check_interval": "4h" } },
+    { "source": "hand-api-monitor", "target": "experimental-sambanova", "type": "monitors", "properties": { "check_interval": "4h" } }
+  ],
+  "metadata": {
+    "version": "3.0.0",
+    "created": "2026-08-20",
+    "lastConsolidated": "2026-08-20",
+    "entityCount": 21,
+    "relationCount": 20,
+    "performance_summary": {
+      "fastest": "Groq (393ms)",
+      "slowest": "OpenRouter (915ms)",
+      "all_providers": "GREEN",
+      "recommendation": "Groq primary, Mistral overflow, Steel local, NVIDIA backup, OpenRouter batch"
+    }
+  }
+}
