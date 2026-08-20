@@ -143,7 +143,7 @@ def _active_provider() -> str | None:
     """Resolve the brain provider actually in use right now."""
     p = config.BRAIN_PROVIDER
     if p == "auto":
-        for name in ("openrouter", "kilo", "agnes", "ovh", "modelscope",
+        for name in ("openrouter", "dsh", "kilo", "agnes", "ovh", "modelscope",
                      "airforce", "unorouter", "mistral", "groq", "gemini", "nvidia"):
             meta = config.PROVIDERS[name]
             if getattr(config, meta["key"], "") or not meta["needs_key"]:
@@ -218,6 +218,39 @@ def chat_opencode(user_text: str, system: str) -> str:
             if text.strip():
                 return text.strip()
     raise BrainError("opencode produced no assistant message")
+
+
+def chat_dsh(messages: list[dict], model: str | None = None, temperature: float = 0.6) -> str:
+    """Chat via the DeepSeek Harness ds-free-api proxy."""
+    if not config.DSH_API_KEY:
+        raise BrainError("DSH_API_KEY not set (ds-free-api proxy)")
+    model = model or config.DSH_MODEL
+    payload = {
+        "model": model,
+        "messages": messages,
+        "temperature": temperature,
+    }
+    headers = {
+        "Authorization": f"Bearer {config.DSH_API_KEY}",
+        "Content-Type": "application/json",
+    }
+    with httpx.Client(timeout=180) as client:
+        resp = client.post(
+            f"{config.DSH_BASE}/chat/completions",
+            json=payload,
+            headers=headers,
+        )
+    if resp.status_code != 200:
+        hint = ""
+        try:
+            hint = resp.json().get("error", {}).get("message", "")
+        except Exception:  # noqa: BLE001
+            hint = resp.text[:160]
+        raise BrainError(f"DSH proxy failed (HTTP {resp.status_code}) — {hint or 'unknown reason'}")
+    try:
+        return resp.json()["choices"][0]["message"]["content"].strip()
+    except (KeyError, IndexError, TypeError) as exc:
+        raise BrainError(f"malformed DSH response: {exc}") from exc
 
 
 def offline_reply(system: str, user_text: str) -> str:

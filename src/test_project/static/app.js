@@ -21,7 +21,7 @@
   var audio = new Audio();
   var lastSettings = null;
 
-  var modes = { deepthink: false, webfetch: false, verify: false };
+  var modes = { deepthink: false, webfetch: false, verify: false, dsh: false };
 
   function restoreIdle() {
     if (!sendBtn.disabled) {
@@ -61,9 +61,10 @@
     var time = now();
     var li = document.createElement("li");
     li.className = "msg " + role;
-    if (role === "cawl") {
+    if (role === "cawl" || role === "dsh") {
+      var label = role === "dsh" ? "DSH ORACLE" : "ARCHMAGOS";
       li.innerHTML =
-        '<div class="src"><span class="glyph"></span>ARCHMAGOS <time>' + time + "</time></div>" +
+        '<div class="src"><span class="glyph"></span>' + label + " <time>" + time + "</time></div>" +
         '<p class="bubble"></p>';
       li.querySelector(".bubble").textContent = text;
       makeReplayable(li);
@@ -173,7 +174,12 @@
     input.value = "";
     var typing = addTyping();
     setThinking(true);
-    postJson("/chat", { message: text, deepthink: modes.deepthink, webfetch: modes.webfetch, verify: modes.verify }, 150000)
+    var endpoint = modes.dsh ? "/dsh/chat" : "/chat";
+    var payload = { message: text, deepthink: modes.deepthink, webfetch: modes.webfetch, verify: modes.verify };
+    if (modes.dsh) {
+      payload.system = "You are the DSH Oracle, a deep-reasoning tech priest of C.A.W.L. powered by DeepSeek V4. Think step-by-step. Deliver precise, actionable results. No preamble.";
+    }
+    postJson(endpoint, payload, 180000)
       .then(function (r) {
         return parseJson(r).then(function (d) { return { ok: r.ok, status: r.status, data: d }; });
       })
@@ -186,7 +192,8 @@
           if (modes.deepthink && res.data.thinking) {
             reply = "[THOUGHT PROCESS]\n" + res.data.thinking + "\n[/THOUGHT PROCESS]\n\n" + reply;
           }
-          addMsg("cawl", reply);
+          var role = modes.dsh ? "dsh" : "cawl";
+          addMsg(role, reply);
           addTools(res.data.tools);
           if (res.data.reply) speak(res.data.reply);
         }
@@ -211,7 +218,7 @@
       var key = btn.id.replace("-btn", "");
       modes[key] = !modes[key];
       btn.classList.toggle("active", modes[key]);
-      var label = key === "deepthink" ? "THINK" : key === "webfetch" ? "FETCH" : "VERIFY";
+      var label = key === "deepthink" ? "THINK" : key === "webfetch" ? "FETCH" : key === "verify" ? "VERIFY" : "DSH";
       statusText.textContent = label + " " + (modes[key] ? "engaged" : "disengaged");
       setTimeout(function () { if (!sendBtn.disabled) statusText.textContent = "cogitators ready"; }, 1500);
     });

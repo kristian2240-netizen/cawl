@@ -157,6 +157,11 @@ UNOROUTER_API_KEY = _env("UNOROUTER_API_KEY").strip()
 UNOROUTER_BASE = _env("UNOROUTER_BASE", "https://api.unorouter.com/v1")
 UNOROUTER_MODEL = _env("CAWL_UNOROUTER_MODEL", "step-3.7-flash:free")
 
+# DSH — DeepSeek Harness via ds-free-api proxy (free web-chat backend)
+DSH_API_KEY = _env("DSH_API_KEY", "sk-cawl-free-2026").strip()
+DSH_BASE = _env("DSH_BASE", "http://127.0.0.1:5317/v1").strip()
+DSH_MODEL = _env("CAWL_DSH_MODEL", "deepseek-default")
+
 OPENCODE_CLI = _env("CAWL_OPENCODE", "opencode")
 
 # brain provider: "auto" | "opencode" | "openrouter" | "mistral" | "groq" | "gemini" | "nvidia" | "offline"
@@ -228,6 +233,11 @@ PROVIDERS: dict[str, dict] = {
         "name": "UnoRouter", "key": "UNOROUTER_API_KEY", "needs_key": True,
         "base": "https://api.unorouter.com/v1", "model": "UNOROUTER_MODEL",
         "key_label": "UNOROUTER_API_KEY",
+    },
+    "dsh": {
+        "name": "DeepSeek Harness", "key": "DSH_API_KEY", "needs_key": True,
+        "base": "http://127.0.0.1:5317/v1", "model": "DSH_MODEL",
+        "key_label": "DSH_API_KEY",
     },
 }
 
@@ -303,6 +313,9 @@ SETTING_KEYS: dict[str, type] = {
     "MODELSCOPE_API_KEY": str,
     "AIRFORCE_API_KEY": str,
     "UNOROUTER_API_KEY": str,
+    "DSH_API_KEY": str,
+    "DSH_BASE": str,
+    "DSH_MODEL": str,
     "OPENCODE_CLI": str,
     "TTS_ENGINE": str,
     "TTS_VOICE": str,

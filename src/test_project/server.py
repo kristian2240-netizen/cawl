@@ -14,7 +14,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import config, identity, scheduler, settings, vault, wiki
+from . import config, identity, priests, scheduler, settings, vault, wiki
 from . import brain, images, voice
 from .tools import SandboxFS, Terminal, fetch_url, search_ddg
 
@@ -213,6 +213,16 @@ def post_oc_chat(body: ChatIn):
     system = body.system or identity.system_prompt()
     try:
         return {"reply": brain.chat_opencode(body.message, system)}
+    except brain.BrainError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+@app.post("/dsh/chat")
+def post_dsh_chat(body: ChatIn):
+    system = body.system or priests.DSH_SYSTEM
+    messages = [{"role": "system", "content": system}, {"role": "user", "content": body.message}]
+    try:
+        return {"reply": brain.chat_dsh(messages)}
     except brain.BrainError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 

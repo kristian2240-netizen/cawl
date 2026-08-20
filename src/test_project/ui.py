@@ -51,6 +51,10 @@ def _trazyn_archive(material: str) -> str:
     return priests.trazyn(material)
 
 
+def _dsh_oracle(task: str) -> str:
+    return priests.dsh_oracle(task)
+
+
 def _add_task(name: str, command: str, kind: str) -> str:
     if not name or not command:
         return "Both name and command are required."
@@ -188,6 +192,12 @@ def build_ui() -> gr.Blocks:
                     t_btn = gr.Button("Archive")
                     t_out = gr.Markdown("")
                     t_btn.click(_trazyn_archive, t_in, t_out)
+                with gr.Tab("DSH Oracle (DeepSeek V4)"):
+                    dsh_in = gr.Textbox(label="Task for the DSH Oracle", lines=4,
+                                        placeholder="Complex analysis, code, reasoning…")
+                    dsh_btn = gr.Button("Consult Oracle")
+                    dsh_out = gr.Markdown("")
+                    dsh_btn.click(_dsh_oracle, dsh_in, dsh_out)
 
             with gr.Tab("Image Forge"):
                 with gr.Row():

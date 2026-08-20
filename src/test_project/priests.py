@@ -4,6 +4,7 @@
 - Scribe Priest — research & drafting; returns deliverable only (brain model).
 - Trazyn — Notion archivist; emits NOTION_* protocol lines (no key -> queue).
 - Magos Optikon — vision scribe; describes images (nano-vlm free).
+- DSH Oracle — DeepSeek V4 via ds-free-api proxy; deep reasoning, code, analysis.
 """
 
 from __future__ import annotations
@@ -35,6 +36,14 @@ TRAZYN_SYSTEM = (
     "storage. You may emit protocol lines: NOTION_CREATE::<title>|<body> or "
     "NOTION_UPDATE::<page_id>|<body>. When no Notion key is set, produce a markdown summary "
     "the caller can file manually. Deliverable only."
+)
+
+DSH_SYSTEM = (
+    "You are the DSH Oracle, a deep-reasoning tech priest of C.A.W.L. powered by DeepSeek V4 "
+    "through the ds-free-api proxy. You excel at complex analysis, code generation, debugging, "
+    "mathematical reasoning, and multi-step planning. Think step-by-step before answering. "
+    "Provide thorough, precise, actionable responses. When writing code, include comments and "
+    "handle edge cases. No preamble — deliver the result."
 )
 
 
@@ -78,3 +87,14 @@ def optikon(image_path: str, question: str = "Describe this image.") -> dict:
 
 def trazyn(material: str) -> str:
     return brain.brain_chat(TRAZYN_SYSTEM, material, model=brain.resolve_model("scribe"), temperature=0.4)
+
+
+def dsh_oracle(task: str) -> str:
+    """Deep-reasoning tech priest via the DSH ds-free-api proxy."""
+    try:
+        return brain.chat_dsh(
+            [{"role": "system", "content": DSH_SYSTEM}, {"role": "user", "content": task}],
+            temperature=0.4,
+        )
+    except brain.BrainError as exc:
+        return f"DSH Oracle offline — {exc}"

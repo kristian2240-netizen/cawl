@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSH Oracle — DeepSeek V4 Free</title>
+<style>
+  :root {
+    --bg: #191919; --surface: #252525; --border: #333;
+    --text: #e0e0e0; --dim: #888; --accent: #3b82f6;
+    --accent-hover: #2563eb; --user-bg: #2a2a2a; --error: #ef4444;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono: 'SF Mono', 'Fira Code', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; }
+
+  .header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; background: var(--surface); }
+  .header .logo { width: 8px; height: 8px; border-radius: 2px; background: var(--accent); transform: rotate(45deg); }
+  .header h1 { font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+  .header .status { margin-left: auto; font-size: 11px; color: var(--dim); }
+  .header .dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; display: inline-block; margin-right: 4px; }
+  .header .dot.off { background: var(--error); }
+
+  .mode-bar { padding: 8px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center; background: var(--surface); }
+  .mode-btn { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 3px; background: transparent; color: var(--dim); cursor: pointer; transition: all 0.15s; }
+  .mode-btn:hover { border-color: var(--accent); color: var(--text); }
+  .mode-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .mode-bar .sep { width: 1px; height: 16px; background: var(--border); }
+  .mode-bar label { font-size: 10px; color: var(--dim); letter-spacing: 0.5px; }
+  .mode-bar select { font-size: 11px; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 3px; padding: 2px 6px; }
+
+  .chat { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+  .chat::-webkit-scrollbar { width: 4px; }
+  .chat::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .msg { max-width: 85%; padding: 10px 14px; border-radius: 6px; font-size: 13px; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+  .msg.user { align-self: flex-end; background: var(--user-bg); border: 1px solid var(--border); }
+  .msg.oracle { align-self: flex-start; background: var(--surface); border-left: 2px solid var(--accent); }
+  .msg.error { align-self: center; background: transparent; color: var(--error); font-size: 12px; border: 1px solid var(--error); max-width: 90%; text-align: center; }
+  .msg.system { align-self: center; background: transparent; color: var(--dim); font-size: 11px; font-style: italic; }
+  .msg pre { background: #111; padding: 8px 10px; border-radius: 4px; overflow-x: auto; margin: 6px 0; font-family: var(--mono); font-size: 12px; }
+  .msg code { font-family: var(--mono); font-size: 12px; background: #1a1a1a; padding: 1px 4px; border-radius: 2px; }
+  .msg pre code { background: none; padding: 0; }
+
+  .typing { display: flex; gap: 4px; align-items: center; padding: 10px 14px; }
+  .typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: pulse 1.2s infinite; }
+  .typing span:nth-child(2) { animation-delay: 0.15s; }
+  .typing span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+  .input-bar { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 8px; background: var(--surface); }
+  .input-bar textarea { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--font); font-size: 13px; padding: 8px 12px; resize: none; min-height: 38px; max-height: 120px; outline: none; transition: border-color 0.15s; }
+  .input-bar textarea:focus { border-color: var(--accent); }
+  .input-bar textarea::placeholder { color: var(--dim); }
+  .input-bar button { background: var(--accent); color: #fff; border: none; border-radius: 4px; padding: 8px 16px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+  .input-bar button:hover { background: var(--accent-hover); }
+  .input-bar button:disabled { background: var(--border); color: var(--dim); cursor: not-allowed; }
+
+  .headless-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; justify-content: center; align-items: center; }
+  .headless-overlay.show { display: flex; }
+  .headless-box { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; width: 90%; max-width: 480px; }
+  .headless-box h2 { font-size: 14px; letter-spacing: 1px; margin-bottom: 12px; color: var(--accent); }
+  .headless-box textarea { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--font); font-size: 13px; padding: 10px; min-height: 80px; resize: vertical; outline: none; }
+  .headless-box textarea:focus { border-color: var(--accent); }
+  .headless-actions { display: flex; gap: 8px; margin-top: 12px; justify-content: flex-end; }
+  .headless-actions button { padding: 6px 14px; border-radius: 4px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); }
+  .btn-run { background: var(--accent); color: #fff; border-color: var(--accent) !important; }
+  .btn-cancel { background: transparent; color: var(--dim); }
+  #headless-result { margin-top: 12px; font-size: 12px; color: var(--dim); max-height: 200px; overflow-y: auto; white-space: pre-wrap; font-family: var(--mono); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo"></div>
+  <h1>DSH Oracle</h1>
+  <div class="status"><span class="dot" id="status-dot"></span><span id="status-text">connecting…</span></div>
+</div>
+
+<div class="mode-bar">
+  <button class="mode-btn" id="btn-headless" title="Run a single task, no conversation">HEADLESS</button>
+  <div class="sep"></div>
+  <label>MODEL</label>
+  <select id="model-sel">
+    <option value="deepseek-default">DeepSeek V4 Flash</option>
+    <option value="deepseek-expert">DeepSeek V4 Pro</option>
+  </select>
+  <div class="sep"></div>
+  <label>TEMP</label>
+  <select id="temp-sel">
+    <option value="0.3">0.3</option>
+    <option value="0.5" selected>0.5</option>
+    <option value="0.7">0.7</option>
+    <option value="1.0">1.0</option>
+  </select>
+</div>
+
+<div class="chat" id="chat"></div>
+
+<div class="input-bar">
+  <textarea id="input" rows="1" placeholder="Ask the Oracle…" autofocus></textarea>
+  <button id="send-btn">SEND</button>
+</div>
+
+<div class="headless-overlay" id="headless-overlay">
+  <div class="headless-box">
+    <h2>⚙ HEADLESS MODE</h2>
+    <p style="font-size:12px;color:var(--dim);margin-bottom:10px;">Enter a task. The Oracle will execute it and return the result — no conversation.</p>
+    <textarea id="headless-input" placeholder="e.g. Write a Python fizzbuzz function"></textarea>
+    <div id="headless-result"></div>
+    <div class="headless-actions">
+      <button class="btn-cancel" id="hl-cancel">CANCEL</button>
+      <button class="btn-run" id="hl-run">RUN</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var PROXY = "http://127.0.0.1:5317";
+  var API_KEY = "sk-cawl-free-2026";
+  var chat = document.getElementById("chat");
+  var input = document.getElementById("input");
+  var sendBtn = document.getElementById("send-btn");
+  var statusDot = document.getElementById("status-dot");
+  var statusText = document.getElementById("status-text");
+  var modelSel = document.getElementById("model-sel");
+  var tempSel = document.getElementById("temp-sel");
+  var history = [];
+
+  function checkHealth() {
+    fetch(PROXY + "/health").then(function (r) { return r.json(); }).then(function (d) {
+      statusDot.className = "dot";
+      statusText.textContent = "online · " + (d.accounts || "?") + " accounts";
+    }).catch(function () {
+      statusDot.className = "dot off";
+      statusText.textContent = "proxy offline";
+    });
+  }
+  checkHealth();
+  setInterval(checkHealth, 30000);
+
+  function addMsg(cls, text) {
+    var div = document.createElement("div");
+    div.className = "msg " + cls;
+    div.innerHTML = renderMd(text);
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+    return div;
+  }
+
+  function renderMd(text) {
+    return text
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="lang-$1">$2</code></pre>')
+      .replace(/`([^`]+)`/g, "<code>$1</code>")
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\n/g, "<br>");
+  }
+
+  function addTyping() {
+    var div = document.createElement("div");
+    div.className = "typing";
+    div.innerHTML = "<span></span><span></span><span></span>";
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+    return div;
+  }
+
+  function send() {
+    var text = input.value.trim();
+    if (!text || sendBtn.disabled) return;
+    input.value = "";
+    input.style.height = "auto";
+    addMsg("user", text);
+    history.push({ role: "user", content: text });
+    var typing = addTyping();
+    sendBtn.disabled = true;
+
+    var payload = {
+      model: modelSel.value,
+      messages: history.slice(-20),
+      temperature: parseFloat(tempSel.value),
+      max_tokens: 8192
+    };
+
+    fetch(PROXY + "/v1/chat/completions", {
+      method: "POST",
+      headers: { "Authorization": "Bearer " + API_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }).then(function (d) {
+      typing.remove();
+      var reply = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content || "…silence.";
+      history.push({ role: "assistant", content: reply });
+      addMsg("oracle", reply);
+    }).catch(function (err) {
+      typing.remove();
+      addMsg("error", "Proxy error — " + err.message);
+    }).finally(function () {
+      sendBtn.disabled = false;
+      input.focus();
+    });
+  }
+
+  sendBtn.addEventListener("click", send);
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+  });
+  input.addEventListener("input", function () {
+    input.style.height = "auto";
+    input.style.height = Math.min(input.scrollHeight, 120) + "px";
+  });
+
+  // ---- Headless mode ----
+  var hlOverlay = document.getElementById("headless-overlay");
+  var hlInput = document.getElementById("headless-input");
+  var hlResult = document.getElementById("headless-result");
+  var hlRun = document.getElementById("hl-run");
+  var hlCancel = document.getElementById("hl-cancel");
+
+  document.getElementById("btn-headless").addEventListener("click", function () {
+    hlOverlay.classList.add("show");
+    hlInput.value = "";
+    hlResult.textContent = "";
+    hlInput.focus();
+  });
+  hlCancel.addEventListener("click", function () { hlOverlay.classList.remove("show"); });
+  hlOverlay.addEventListener("click", function (e) { if (e.target === hlOverlay) hlOverlay.classList.remove("show"); });
+
+  hlRun.addEventListener("click", function () {
+    var task = hlInput.value.trim();
+    if (!task) return;
+    hlRun.disabled = true;
+    hlResult.textContent = "Executing…";
+
+    var payload = {
+      model: modelSel.value,
+      messages: [
+        { role: "system", content: "You are the DSH Oracle, a deep-reasoning tech priest. Think step-by-step. Deliver precise results. No preamble." },
+        { role: "user", content: task }
+      ],
+      temperature: parseFloat(tempSel.value),
+      max_tokens: 16384
+    };
+
+    fetch(PROXY + "/v1/chat/completions", {
+      method: "POST",
+      headers: { "Authorization": "Bearer " + API_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }).then(function (d) {
+      var reply = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content || "No response.";
+      hlResult.textContent = reply;
+      // Also add to chat
+      addMsg("system", "[Headless task completed]");
+      addMsg("oracle", reply);
+    }).catch(function (err) {
+      hlResult.textContent = "Error: " + err.message;
+    }).finally(function () {
+      hlRun.disabled = false;
+    });
+  });
+
+  addMsg("system", "DSH Oracle ready. Proxy: " + PROXY);
+})();
+</script>
+</body>
+</html>

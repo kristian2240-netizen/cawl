@@ -580,6 +580,13 @@ body.vox-live .pv-title { color: #ff6a4d; opacity: 1; }
   color: var(--bone-soft);
 }
 
+.msg.dsh { display: flex; flex-direction: column; }
+.msg.dsh .bubble {
+  border-left: 2px solid #3b82f6;
+  padding: 2px 0 2px 15px;
+  color: var(--bone-soft);
+}
+
 .src {
   display: flex; align-items: center; gap: 8px; margin-bottom: 7px;
   font-family: var(--font-mono); font-size: 10px; letter-spacing: 2.4px;
