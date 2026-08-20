@@ -58,6 +58,9 @@ The Vault is C.A.W.L.'s long-term memory. Markdown, one idea per note, YAML fron
 | `skills/delegation/SKILL.md` | 3.3 KB | Main Brain dispatch protocol |
 | `skills/blender/SKILL.md` | 6.8 KB | Blender 5.1 automation |
 | `skills/roblox-api/SKILL.md` | ~5 KB | Roblox investigation API tools (no auth) |
+| `skills/discord-api/SKILL.md` | ~4 KB | Discord investigation API tools (no auth) |
+| `skills/roblox-discord-integration/SKILL.md` | ~4 KB | Roblox↔Discord verification APIs |
+| `skills/cognitive-modes/SKILL.md` | ~4 KB | DeepThink, WebFetch, Verify modes |
 | `skills/memory-system/SKILL.md` | 4.9 KB | 6-tier Cognithor memory |
 | `skills/hands/SKILL.md` | 4.8 KB | OpenFang autonomous agents |
 | `skills/hands/SCHEDULER.md` | ~1 KB | Hand cron scheduling |
