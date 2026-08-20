@@ -1,0 +1,204 @@
+<svg viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="filter" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="linearRGB">
+      <feMorphology operator="dilate" radius="20 20" in="SourceAlpha" result="morphology"/>
+      <feFlood flood-color="#ffffff" flood-opacity="1" result="flood"/>
+      <feComposite in="flood" in2="morphology" operator="in" result="composite"/>
+      <feMerge result="merge">
+        <feMergeNode in="composite" result="mergeNode"/>
+        <feMergeNode in="SourceGraphic" result="mergeNode1"/>
+      </feMerge>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowSmall" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g id="notion-avatar" filter="url(#filter)">
+
+    <!-- LAYER: ROBE / BODY - crimson robes -->
+    <g id="notion-avatar-robe">
+      <path d="M260 680 C 260 620 340 580 540 580 C 740 580 820 620 820 680 L 860 1080 L 220 1080 Z" fill="#8B1A1A" stroke="#1a1a1a" stroke-width="8"/>
+      <path d="M340 700 L 340 1080" stroke="#6B0F0F" stroke-width="4" fill="none"/>
+      <path d="M740 700 L 740 1080" stroke="#6B0F0F" stroke-width="4" fill="none"/>
+      <path d="M440 720 L 440 1080" stroke="#6B0F0F" stroke-width="3" fill="none"/>
+      <path d="M640 720 L 640 1080" stroke="#6B0F0F" stroke-width="3" fill="none"/>
+      <!-- robe trim gold -->
+      <path d="M260 680 C 260 620 340 580 540 580 C 740 580 820 620 820 680" fill="none" stroke="#C9A84C" stroke-width="10"/>
+      <!-- cog symbol on chest -->
+      <g transform="translate(540 740)">
+        <circle r="36" fill="none" stroke="#C9A84C" stroke-width="6"/>
+        <circle r="14" fill="#C9A84C"/>
+        <rect x="-5" y="-46" width="10" height="20" fill="#C9A84C"/>
+        <rect x="-5" y="-46" width="10" height="20" fill="#C9A84C" transform="rotate(45)"/>
+        <rect x="-5" y="-46" width="10" height="20" fill="#C9A84C" transform="rotate(90)"/>
+        <rect x="-5" y="-46" width="10" height="20" fill="#C9A84C" transform="rotate(135)"/>
+        <rect x="-5" y="-46" width="10" height="20" fill="#C9A84C" transform="rotate(180)"/>
+        <rect x="-5" y="-46" width="10" height="20" fill="#C9A84C" transform="rotate(225)"/>
+        <rect x="-5" y="-46" width="10" height="20" fill="#C9A84C" transform="rotate(270)"/>
+        <rect x="-5" y="-46" width="10" height="20" fill="#C9A84C" transform="rotate(315)"/>
+      </g>
+    </g>
+
+    <!-- LAYER: HOOD - deep crimson hood -->
+    <g id="notion-avatar-hood">
+      <path d="M540 160 C 780 160 880 320 880 520 C 880 620 840 680 800 720 L 280 720 C 240 680 200 620 200 520 C 200 320 300 160 540 160 Z" fill="#8B1A1A" stroke="#1a1a1a" stroke-width="8"/>
+      <!-- hood inner shadow -->
+      <path d="M540 220 C 740 220 820 340 820 500 C 820 580 790 640 760 680 L 320 680 C 290 640 260 580 260 500 C 260 340 340 220 540 220 Z" fill="#6B0F0F" stroke="#1a1a1a" stroke-width="6"/>
+    </g>
+
+    <!-- LAYER: DOME - gold mechanical dome/helm -->
+    <g id="notion-avatar-dome">
+      <path d="M540 120 C 720 120 800 220 800 340 L 280 340 C 280 220 360 120 540 120 Z" fill="#C9A84C" stroke="#1a1a1a" stroke-width="8"/>
+      <path d="M280 340 C 280 340 400 380 540 380 C 680 380 800 340 800 340" fill="#A08030" stroke="#1a1a1a" stroke-width="6"/>
+      <!-- dome spikes -->
+      <path d="M380 170 L 370 100 L 400 150 Z" fill="#C9A84C" stroke="#1a1a1a" stroke-width="4"/>
+      <path d="M540 130 L 540 60 L 560 130 Z" fill="#C9A84C" stroke="#1a1a1a" stroke-width="4"/>
+      <path d="M700 170 L 710 100 L 680 150 Z" fill="#C9A84C" stroke="#1a1a1a" stroke-width="4"/>
+      <!-- dome rivets -->
+      <circle cx="400" cy="260" r="8" fill="#1a1a1a"/>
+      <circle cx="540" cy="240" r="8" fill="#1a1a1a"/>
+      <circle cx="680" cy="260" r="8" fill="#1a1a1a"/>
+      <!-- dome lens -->
+      <circle cx="540" cy="180" r="16" fill="#FF4444" stroke="#1a1a1a" stroke-width="4" filter="url(#glowSmall)"/>
+    </g>
+
+    <!-- LAYER: FACE - pale skin face -->
+    <g id="notion-avatar-face">
+      <path d="M540 340 C 700 340 760 420 760 540 C 760 640 720 700 680 740 L 400 740 C 360 700 320 640 320 540 C 320 420 380 340 540 340 Z" fill="#E8D5B8" stroke="#1a1a1a" stroke-width="8"/>
+    </g>
+
+    <!-- LAYER: BROW - mechanical brow plate -->
+    <g id="notion-avatar-brow">
+      <path d="M360 440 C 400 420 680 420 720 440 L 720 470 C 680 455 400 455 360 470 Z" fill="#C9A84C" stroke="#1a1a1a" stroke-width="4"/>
+      <circle cx="400" cy="455" r="5" fill="#1a1a1a"/>
+      <circle cx="680" cy="455" r="5" fill="#1a1a1a"/>
+    </g>
+
+    <!-- LAYER: EYES -->
+    <g id="notion-avatar-eyes">
+      <!-- RIGHT EYE - human eye -->
+      <g class="eye-human">
+        <ellipse cx="640" cy="520" rx="42" ry="30" fill="#FFFFFF" stroke="#1a1a1a" stroke-width="6"/>
+        <circle cx="640" cy="520" r="18" fill="#5C4033"/>
+        <circle cx="640" cy="520" r="10" fill="#1a1a1a"/>
+        <circle cx="632" cy="512" r="6" fill="#FFFFFF" opacity="0.9"/>
+        <!-- eyelid lines -->
+        <path d="M598 510 C 620 495 660 495 682 510" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+        <path d="M600 530 C 620 540 660 540 680 530" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+      </g>
+
+      <!-- LEFT EYE - bionic/prosthetic eye -->
+      <g class="eye-bionic">
+        <circle cx="440" cy="520" r="44" fill="#1a1a1a" stroke="#C9A84C" stroke-width="8"/>
+        <circle cx="440" cy="520" r="32" fill="#0A1628"/>
+        <circle cx="440" cy="520" r="22" fill="#1E90FF" filter="url(#glow)"/>
+        <circle cx="440" cy="520" r="12" fill="#FFFFFF" opacity="0.7"/>
+        <circle cx="440" cy="520" r="6" fill="#1a1a1a"/>
+        <!-- reticle crosshairs -->
+        <line x1="440" y1="484" x2="440" y2="556" stroke="#88CCFF" stroke-width="2" opacity="0.8"/>
+        <line x1="404" y1="520" x2="476" y2="520" stroke="#88CCFF" stroke-width="2" opacity="0.8"/>
+        <!-- bionic ring details -->
+        <circle cx="440" cy="520" r="38" fill="none" stroke="#C9A84C" stroke-width="3" stroke-dasharray="8 6"/>
+        <!-- rivets -->
+        <circle cx="400" cy="490" r="5" fill="#1a1a1a" stroke="#C9A84C" stroke-width="2"/>
+        <circle cx="480" cy="490" r="5" fill="#1a1a1a" stroke="#C9A84C" stroke-width="2"/>
+        <circle cx="400" cy="550" r="5" fill="#1a1a1a" stroke="#C9A84C" stroke-width="2"/>
+        <circle cx="480" cy="550" r="5" fill="#1a1a1a" stroke="#C9A84C" stroke-width="2"/>
+        <!-- cables from eye -->
+        <path d="M396 555 C 380 580 370 610 375 640" fill="none" stroke="#1a1a1a" stroke-width="5"/>
+        <path d="M484 555 C 500 580 510 610 505 640" fill="none" stroke="#1a1a1a" stroke-width="5"/>
+      </g>
+    </g>
+
+    <!-- LAYER: NOSE -->
+    <g id="notion-avatar-nose">
+      <path d="M540 530 L 530 590 C 530 600 550 600 550 590 Z" fill="#D4BC9E" stroke="#1a1a1a" stroke-width="4"/>
+    </g>
+
+    <!-- LAYER: MOUTH / VOX GRILL -->
+    <g id="notion-avatar-mouth">
+      <rect x="460" y="640" width="160" height="50" rx="8" fill="#1a1a1a" stroke="#C9A84C" stroke-width="4"/>
+      <!-- grill slats -->
+      <line x1="480" y1="648" x2="480" y2="682" stroke="#333" stroke-width="3"/>
+      <line x1="500" y1="648" x2="500" y2="682" stroke="#333" stroke-width="3"/>
+      <line x1="520" y1="648" x2="520" y2="682" stroke="#333" stroke-width="3"/>
+      <line x1="540" y1="648" x2="540" y2="682" stroke="#333" stroke-width="3"/>
+      <line x1="560" y1="648" x2="560" y2="682" stroke="#333" stroke-width="3"/>
+      <line x1="580" y1="648" x2="580" y2="682" stroke="#333" stroke-width="3"/>
+      <line x1="600" y1="648" x2="600" y2="682" stroke="#333" stroke-width="3"/>
+      <!-- glow from grill -->
+      <rect x="475" y="655" width="130" height="4" rx="2" fill="#FF6B35" opacity="0.6" filter="url(#glowSmall)"/>
+    </g>
+
+    <!-- LAYER: CHEEK GUARDS - brass cheek plates -->
+    <g id="notion-avatar-cheeks">
+      <path d="M320 480 C 340 480 380 520 380 580 C 380 640 360 680 340 700 L 320 700 C 320 660 310 560 320 480 Z" fill="#C9A84C" stroke="#1a1a1a" stroke-width="4"/>
+      <path d="M760 480 C 740 480 700 520 700 580 C 700 640 720 680 740 700 L 760 700 C 760 660 770 560 760 480 Z" fill="#C9A84C" stroke="#1a1a1a" stroke-width="4"/>
+      <circle cx="340" cy="560" r="4" fill="#1a1a1a"/>
+      <circle cx="740" cy="560" r="4" fill="#1a1a1a"/>
+    </g>
+
+    <!-- LAYER: SERVO SKULL - floating above dome -->
+    <g id="notion-avatar-skull">
+      <!-- stalk -->
+      <path d="M540 120 L 540 50" fill="none" stroke="#1a1a1a" stroke-width="6"/>
+      <!-- skull -->
+      <path d="M510 50 C 510 20 570 20 570 50 L 570 70 C 570 80 510 80 510 70 Z" fill="#F5F0E8" stroke="#1a1a1a" stroke-width="5"/>
+      <path d="M515 70 C 515 82 565 82 565 70 Z" fill="#F5F0E8" stroke="#1a1a1a" stroke-width="4"/>
+      <!-- eye sockets -->
+      <circle cx="528" cy="46" r="8" fill="#1E90FF" filter="url(#glowSmall)"/>
+      <circle cx="552" cy="46" r="8" fill="#1E90FF" filter="url(#glowSmall)"/>
+      <!-- jaw lines -->
+      <line x1="525" y1="68" x2="525" y2="76" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="540" y1="68" x2="540" y2="78" stroke="#1a1a1a" stroke-width="2"/>
+      <line x1="555" y1="68" x2="555" y2="76" stroke="#1a1a1a" stroke-width="2"/>
+    </g>
+
+    <!-- LAYER: MECHADENDRITES - mechanical tendrils -->
+    <g id="notion-avatar-mechadendrites">
+      <!-- left tendril -->
+      <path d="M320 560 C 240 520 180 480 120 440" fill="none" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="120" cy="440" r="12" fill="#C9A84C" stroke="#1a1a1a" stroke-width="4"/>
+      <path d="M108 436 L 96 424 M108 436 L 96 448" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+      <path d="M132 436 L 144 424 M132 436 L 144 448" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+      <!-- right tendril -->
+      <path d="M760 560 C 840 520 900 480 960 440" fill="none" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="960" cy="440" r="12" fill="#C9A84C" stroke="#1a1a1a" stroke-width="4"/>
+      <path d="M948 436 L 936 424 M948 436 L 936 448" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+      <path d="M972 436 L 984 424 M972 436 L 984 448" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+      <!-- back tendrils -->
+      <path d="M400 600 C 340 640 280 700 240 780" fill="none" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="240" cy="780" r="8" fill="#C9A84C" stroke="#1a1a1a" stroke-width="3"/>
+      <path d="M680 600 C 740 640 800 700 840 780" fill="none" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="840" cy="780" r="8" fill="#C9A84C" stroke="#1a1a1a" stroke-width="3"/>
+    </g>
+
+    <!-- LAYER: GEMS / ACCENTS - glowing blue gems -->
+    <g id="notion-avatar-gems">
+      <circle cx="400" cy="700" r="10" fill="#1E90FF" stroke="#1a1a1a" stroke-width="3" filter="url(#glowSmall)"/>
+      <circle cx="680" cy="700" r="10" fill="#1E90FF" stroke="#1a1a1a" stroke-width="3" filter="url(#glowSmall)"/>
+      <circle cx="540" cy="800" r="8" fill="#1E90FF" stroke="#1a1a1a" stroke-width="3" filter="url(#glowSmall)"/>
+    </g>
+
+    <!-- LAYER: EYEBROWS - expressive mechanical brow -->
+    <g id="notion-avatar-eyebrows">
+      <!-- right eyebrow - slightly raised, curious -->
+      <path d="M600 480 C 620 468 660 468 680 476" fill="none" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+      <!-- left eyebrow - bionic ridge, stern -->
+      <path d="M396 476 C 416 464 456 464 476 472" fill="none" stroke="#C9A84C" stroke-width="6" stroke-linecap="round"/>
+    </g>
+
+  </g>
+</svg>

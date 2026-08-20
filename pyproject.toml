@@ -1,0 +1,29 @@
+[project]
+name = "test-project"
+version = "0.1.0"
+description = "C.A.W.L. — Belisarius Cawl Archmagos Dominus. A $0-runtime Mechanicus assistant (Python + Gradio + FastAPI)."
+readme = "README.md"
+authors = [
+    { name = "Kiko", email = "kristian2240@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "gradio>=6.24.0",
+    "fastapi>=0.141.1",
+    "uvicorn>=0.52.2",
+    "httpx>=0.28.1",
+    "pillow>=12.3.0",
+    "pandas>=3.0.5",
+    "pydub>=0.25.1",
+    "pyyaml>=6.0.3",
+    "edge-tts>=7.0.0",
+    "pydantic>=2.13.4",
+    "kokoro-onnx>=0.5.0",
+]
+
+[project.scripts]
+cawl = "test_project.main:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"

@@ -1,0 +1,849 @@
+/* C.A.W.L. — "The Breath of the Archmagos" (Grimdark)
+   Void, blood, rust, ash. Cinzel / Jost / IBM Plex Mono.
+   The gold is tarnished, the glow is blood, the machine breathes in the dark. */
+
+:root {
+  --abyss: #0a0d12;
+  --panel: #141922;
+  --panel-2: #1b222d;
+  --bone: #c0a98b;
+  --bone-soft: #d8cfc0;
+  --mech: #8a1d17;
+  --mech-deep: #2e0a07;
+  --ember: #c1342a;
+  --rust: #6e4630;
+  --gold: #8f6a3a;
+  --dim: #94a0ae;
+  --line: #2a3340;
+  --line-soft: #1e2631;
+
+  --font-display: "Cinzel", Georgia, "Times New Roman", serif;
+  --font-body: "Jost", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+
+  --topbar-h: 58px;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--bone-soft);
+  background:
+    radial-gradient(1100px 780px at 24% 42%, rgba(138, 29, 23, 0.13), transparent 62%),
+    radial-gradient(760px 520px at 88% 112%, rgba(110, 70, 48, 0.08), transparent 60%),
+    radial-gradient(1400px 900px at 50% -10%, rgba(20, 25, 34, 0.55), transparent 70%),
+    var(--abyss);
+  overflow: hidden;
+}
+
+/* grime + scanlines — the Machine Spirit's interference */
+body::before, body::after {
+  content: "";
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+}
+body::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+}
+body::after {
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.16) 0 1px, transparent 1px 3px);
+  opacity: 0.07;
+}
+
+::selection { background: rgba(138, 29, 23, 0.55); color: #efe6d2; }
+
+.topbar, .stage { position: relative; z-index: 1; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+}
+
+.skip {
+  position: fixed; top: -60px; left: 16px; z-index: 100;
+  padding: 10px 14px; background: var(--panel); color: var(--bone);
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 1px;
+  border: 1px solid var(--rust); border-radius: 2px; text-decoration: none;
+  transition: top 0.18s ease;
+}
+.skip:focus { top: 12px; }
+
+:focus-visible {
+  outline: 2px solid var(--rust);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Topbar                                                             */
+/* ------------------------------------------------------------------ */
+
+.topbar {
+  height: var(--topbar-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 22px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(20, 25, 34, 0.96), rgba(10, 13, 18, 0.72));
+}
+
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+
+.crest {
+  width: 30px; height: 30px; flex: none; color: var(--gold);
+}
+.crest-cog {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: crestSpin 90s linear infinite;
+}
+@keyframes crestSpin { to { transform: rotate(360deg); } }
+
+.brand-name {
+  margin: 0; font-family: var(--font-display); font-weight: 700;
+  font-size: 19px; letter-spacing: 4px; color: var(--bone); line-height: 1.1;
+}
+.brand-sub {
+  margin: 1px 0 0; font-family: var(--font-mono); font-size: 9.5px;
+  letter-spacing: 2.4px; color: var(--dim); white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-right { display: flex; align-items: center; gap: 12px; flex: none; }
+
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ember); box-shadow: 0 0 10px rgba(163, 38, 32, 0.8);
+}
+body.thinking .dot { animation: dotPulse 1.1s ease-in-out infinite; }
+@keyframes dotPulse { 50% { opacity: 0.35; } }
+
+.status {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px;
+  color: var(--dim); text-transform: uppercase;
+}
+
+.ui-link {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px;
+  color: var(--gold); text-decoration: none; border: 1px solid var(--line);
+  border-radius: 2px; padding: 6px 10px; transition: border-color 0.15s, color 0.15s;
+}
+.ui-link:hover { border-color: var(--rust); color: var(--bone); }
+
+.cfg-btn {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.6px;
+  color: var(--gold); background: transparent; border: 1px solid var(--line);
+  border-radius: 2px; padding: 7px 11px; cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.cfg-btn:hover { border-color: var(--rust); color: var(--bone); }
+.cfg-btn.ghost { color: var(--dim); }
+.cfg-btn.ghost:hover { color: var(--bone-soft); }
+
+.mode-toggles { display: flex; gap: 6px; }
+
+.mode-btn {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 1.6px;
+  color: var(--dim); background: transparent; border: 1px solid var(--line);
+  border-radius: 2px; padding: 5px 9px; cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+.mode-btn:hover { border-color: var(--rust); color: var(--bone-soft); }
+.mode-btn.active {
+  color: #0b0e13; background: linear-gradient(180deg, var(--mech), var(--mech-deep));
+  border-color: var(--mech);
+  box-shadow: 0 0 10px rgba(138, 29, 23, 0.5);
+}
+.mode-btn.active:hover { filter: brightness(1.15); }
+
+/* ------------------------------------------------------------------ */
+/* Stage                                                              */
+/* ------------------------------------------------------------------ */
+
+.stage {
+  height: calc(100vh - var(--topbar-h));
+  display: grid;
+  grid-template-columns: minmax(300px, 34vw) 1fr;
+}
+
+/* ------------------------- Presence ------------------------------ */
+
+.presence {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 18px; padding: 24px 28px 28px;
+  border-right: 1px solid var(--line);
+  background:
+    radial-gradient(520px 640px at 50% 46%, rgba(138, 29, 23, 0.11), transparent 70%),
+    linear-gradient(180deg, rgba(20, 25, 34, 0.5), rgba(10, 13, 18, 0.4));
+}
+
+.presence-frame { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
+.presence-figure { position: relative; width: min(40vh, 360px); }
+
+.cawl-svg {
+  width: min(40vh, 360px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 18px 42px rgba(0, 0, 0, 0.7));
+}
+
+.cawl-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  border-radius: 6px;
+  display: block;
+  filter: saturate(0.92) contrast(1.05);
+  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.55);
+  transform-origin: bottom center;
+  animation: imgBreath 4.4s ease-in-out infinite;
+}
+.cawl-img[hidden] { display: none; }
+@keyframes imgBreath {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(1.018); }
+}
+
+.cawl-overlay {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+/* vox waveform — motion-graphics voice energy */
+.vox {
+  position: absolute; left: 50%; bottom: -16px;
+  transform: translateX(-50%);
+  display: flex; align-items: flex-end; gap: 4px; height: 22px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.vox i {
+  width: 3px; height: 4px; border-radius: 1px;
+  background: var(--ember); box-shadow: 0 0 8px rgba(163, 38, 32, 0.7);
+}
+body.speaking .vox { opacity: 1; }
+body.speaking .vox i { animation: voxBounce 0.5s ease-in-out infinite; }
+.vox i:nth-child(2) { animation-delay: -0.08s; }
+.vox i:nth-child(3) { animation-delay: -0.2s; }
+.vox i:nth-child(4) { animation-delay: -0.12s; }
+.vox i:nth-child(5) { animation-delay: -0.28s; }
+.vox i:nth-child(6) { animation-delay: -0.05s; }
+.vox i:nth-child(7) { animation-delay: -0.24s; }
+.vox i:nth-child(8) { animation-delay: -0.15s; }
+.vox i:nth-child(9) { animation-delay: -0.3s; }
+@keyframes voxBounce {
+  0%, 100% { height: 4px; }
+  50%      { height: 18px; }
+}
+
+/* speaking — the vox grill opens, the respirator hoses flex, the steam vents */
+.mouth {
+  transform-box: view-box;
+  transform-origin: 160px 181px;
+}
+body.speaking .mouth { animation: mouthTalk 0.3s ease-in-out infinite; }
+@keyframes mouthTalk {
+  0%, 100% { transform: scaleY(0.55); }
+  12%      { transform: scaleY(1.25); }
+  28%      { transform: scaleY(0.85); }
+  44%      { transform: scaleY(1.35); }
+  58%      { transform: scaleY(0.9); }
+  72%      { transform: scaleY(1.2); }
+  88%      { transform: scaleY(0.7); }
+}
+.grill-frame { fill: #030508; stroke: var(--gold); stroke-width: 1.3; }
+.grill-bar { stroke: #05070b; stroke-width: 1.4; }
+.vent-glow path { stroke-width: 1.6; }
+body.speaking .vent-glow { animation: ventFlicker 0.16s steps(2) infinite; }
+@keyframes ventFlicker { 50% { opacity: 0.3; } }
+body.speaking .eye-core { opacity: 1; }
+body.speaking .head { animation-duration: 24s; }
+body.speaking .wisp { animation-duration: 0.9s; }
+
+/* respirator pipe mask — the breathing tubes running from the grill down the collar */
+.respirator { transform-box: view-box; transform-origin: 160px 168px; }
+body.speaking .respirator { animation: hoseFlex 0.3s ease-in-out infinite; }
+@keyframes hoseFlex {
+  0%, 100% { transform: scaleX(0.985); }
+  50%      { transform: scaleX(1.03); }
+}
+.tube { stroke: #0e1620; stroke-width: 6; stroke-linecap: round; }
+.tube-ring { fill: url(#brassGrad); stroke: #05070b; stroke-width: 1; }
+.mask-bridge { stroke-linecap: round; }
+
+/* breathing figure — the signature */
+.figure-body {
+  transform-box: view-box;
+  transform-origin: 50% 92%;
+  animation: breath 4.4s ease-in-out infinite;
+}
+@keyframes breath {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(1.022); }
+}
+
+/* hooded humanoid — the head turns, the eyes are augmetic */
+.head {
+  transform-box: view-box;
+  transform-origin: 160px 228px;
+  animation: headTurn 16s ease-in-out infinite;
+}
+@keyframes headTurn {
+  0%, 14%      { transform: rotate(4.5deg); }
+  35%, 65%     { transform: rotate(-4.5deg); }
+  86%, 100%    { transform: rotate(4.5deg); }
+}
+
+.hood { fill: url(#hoodGrad); }
+.hood-rim { fill: #05070a; }
+.hood-runes { opacity: 0.6; }
+.hrune { stroke: var(--gold); stroke-width: 1.3; stroke-linecap: round; }
+.face { fill: url(#faceShade); }
+.cheek { fill: url(#cheekShade); }
+.brow { fill: #241a10; stroke: #0e0906; stroke-width: 1; }
+.vent { stroke: #04060a; stroke-width: 2; opacity: 0.75; }
+.eye-slit { stroke-linecap: round; }
+.neck { fill: #06090d; }
+.cable { stroke: #1d2633; stroke-width: 3; opacity: 0.85; }
+
+/* brass collar — the mechanical ruff where the neck meets the carapace */
+.collar-brass { fill: url(#brassGrad); stroke: #05070b; stroke-width: 1; }
+.collar-ring { fill: #05070b; stroke: var(--gold); stroke-width: 1.2; }
+
+/* robe-runes — Mechanicus ritual glyphs worked into the red fabric */
+.robe-runes path { stroke: var(--gold); stroke-width: 1.3; opacity: 0.55; stroke-linecap: round; }
+
+.rivets circle { opacity: 0.75; }
+
+/* cog-and-skull — devotional icon on the carapace */
+.cog-skull { opacity: 0.8; }
+.cog-skull circle { stroke: var(--gold); stroke-width: 1.4; }
+.cog-skull .skull-eye { fill: var(--gold); stroke: none; }
+.cog-skull .skull-jaw { stroke: var(--gold); stroke-width: 1.4; }
+
+/* failing pipe — a broken conduit bleeding steam */
+.leak-pipe { opacity: 0.9; }
+.pipe { stroke: #1d2633; stroke-width: 5; stroke-linecap: round; }
+.pipe-joint { fill: url(#brassGrad); stroke: #05070b; stroke-width: 1; }
+.pipe-cap { fill: #0e131a; stroke: #05070b; stroke-width: 1; }
+.steam { opacity: 0; }
+body.speaking .steam, body.thinking .steam { opacity: 1; }
+.wisp { stroke: #c7d3e0; stroke-width: 1.6; stroke-linecap: round; }
+.wisp.w1 { animation: steamRise 1.6s ease-out infinite; }
+.wisp.w2 { animation: steamRise 1.9s ease-out infinite; animation-delay: -0.6s; }
+@keyframes steamRise {
+  0%   { transform: translate(0, 0); opacity: 0.85; }
+  70%  { opacity: 0.25; }
+  100% { transform: translate(3px, -26px); opacity: 0; }
+}
+.wisp { transform-box: view-box; transform-origin: 272px 300px; }
+
+.eye {
+  animation: eyePulse 4.4s ease-in-out infinite;
+}
+.eye-core { fill: #dff3ff; opacity: 0.9; }
+@keyframes eyePulse {
+  0%, 100% { opacity: 0.7; }
+  50%      { opacity: 1; }
+}
+/* the left augmetic burns hotter than the right */
+.eye.e1 { animation: eyePulseHot 3.2s ease-in-out infinite; }
+.eye.e1 .eye-core { opacity: 1; }
+@keyframes eyePulseHot {
+  0%, 100% { opacity: 0.85; }
+  50%      { opacity: 1; }
+}
+
+/* ferro-rune ring — slow machine-ritual rotation */
+.rune-ring {
+  fill: none; stroke: var(--rust); stroke-width: 1.5; opacity: 0.4;
+  stroke-dasharray: 5 9;
+  transform-box: view-box; transform-origin: 50% 50%;
+  animation: runeSpin 120s linear infinite;
+}
+@keyframes runeSpin { to { transform: rotate(360deg); } }
+
+.rim { stroke: var(--rust); stroke-width: 1.4; opacity: 0.5; }
+.chest { stroke: var(--line); stroke-width: 1.6; }
+
+.mantle { fill: url(#mantleGrad); stroke: #3a0d08; stroke-width: 1.5; }
+.seam { stroke: #1d0503; stroke-width: 1.5; opacity: 0.75; }
+
+.chest-cog { transform-box: fill-box; transform-origin: center; animation: cogSpin 26s linear infinite; }
+@keyframes cogSpin { to { transform: rotate(360deg); } }
+.cog-blades rect { fill: var(--gold); opacity: 0.65; }
+.chest-cog circle { stroke: var(--gold); stroke-width: 2; opacity: 0.8; }
+.chest-cog circle:last-child { fill: var(--bone); stroke: none; opacity: 1; }
+
+.chevron { stroke: var(--rust); stroke-width: 1.6; opacity: 0.5; }
+
+.tendril {
+  stroke: #3a4552; stroke-width: 5; stroke-linecap: round;
+  transform-box: view-box;
+  animation: sway 6s ease-in-out infinite alternate;
+}
+.tendril.t1 { transform-origin: 104px 252px; }
+.tendril.t2 { transform-origin: 216px 252px; animation-delay: -3s; }
+@keyframes sway {
+  from { transform: rotate(-2deg); }
+  to   { transform: rotate(2deg); }
+}
+.tendril-tip { fill: var(--mech); animation: tipGlow 4.4s ease-in-out infinite; }
+@keyframes tipGlow { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+.claw { fill: none; stroke: var(--gold); stroke-width: 1.3; stroke-linecap: round; }
+.tendril.t3 { transform-origin: 102px 256px; animation-delay: -1.2s; }
+.tendril.t4 { transform-origin: 218px 256px; animation-delay: -4s; }
+.tendril.t5 { transform-origin: 160px 262px; animation-delay: -2.4s; }
+.tendril.t6 { transform-origin: 204px 258px; animation-delay: -5.1s; }
+
+/* servo-skull scanner on its aerial — drifts gently on the breeze */
+.servo-skull { animation: skullDrift 6s ease-in-out infinite; transform-box: view-box; transform-origin: 160px 62px; }
+.skull-stalk { stroke: #2e3a46; stroke-width: 2; }
+.skull-cranium, .skull-cup, .skull-jawbone { fill: url(#brassGrad); stroke: #05070b; stroke-width: 1; }
+.skull-lens { animation: lensPulse 2.4s ease-in-out infinite; }
+@keyframes skullDrift { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+@keyframes lensPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+/* searchlight beams cutting the dark */
+.beam { fill: url(#beamGrad); }
+.beam.b1 { animation: beamSweep 9s ease-in-out infinite; }
+.beam.b2 { animation: beamSweep 9s ease-in-out infinite; animation-delay: -4.5s; }
+@keyframes beamSweep { 0%, 100% { opacity: 0.18; } 50% { opacity: 0.55; } }
+body.thinking .beam { animation-duration: 1.4s; }
+
+/* brass helm — gold dome and lens stalks */
+.dome { stroke: #0a0d12; }
+.dome-rim { stroke: #0a0d12; }
+.spike { stroke: #0a0d12; }
+.lens-stalk { stroke: #3a4552; stroke-width: 1.6; }
+.lens-dot { animation: lensPulse 2.6s ease-in-out infinite; }
+
+/* layered backpack behind the shoulders */
+.pack-top { fill: url(#brassGrad); stroke: #05070b; stroke-width: 1; }
+.pack-mid { fill: url(#domeGrad); stroke: #05070b; stroke-width: 1; }
+.pack-base { fill: #1b222d; stroke: var(--gold); stroke-width: 1.4; }
+.pack-vents { stroke: #05070b; stroke-width: 1.4; opacity: 0.7; }
+.pack-gem { animation: lensPulse 2.6s ease-in-out infinite; animation-delay: -1.2s; }
+
+/* photoreal human face details */
+.face-grain { mix-blend-mode: soft-light; }
+.wrinkles, .brow-furrow, .crow { stroke-linecap: round; }
+.bone-hi, .nose-hi { stroke-linecap: round; }
+.temple { fill: #54422f; }
+.sclera-veins, .iris-rays { stroke-linecap: round; }
+.cheek-guard { stroke: #0a0d12; stroke-width: 1; }
+.guard-rivet { }
+.lid-line { stroke: #6b5943; stroke-width: 1.2; }
+.lid-bottom { stroke: #6b5943; stroke-width: 1.2; }
+.lash { stroke: #1a120c; stroke-width: 1; opacity: 0.8; }
+.nose, .nose-side, .nose-tip, .nasolabial { stroke: #4a3a26; stroke-width: 1.3; opacity: 0.7; }
+.bio-cable { stroke: #2a3340; stroke-width: 2; opacity: 0.9; }
+.bio-cross { stroke-linecap: round; }
+
+/* grey plating and tubing at the joints */
+.chest-tube { stroke: #3a4552; stroke-width: 2.4; opacity: 0.85; }
+
+/* gold trim on the robe + blue devotional lights */
+.robe-trim, .robe-hem { stroke: var(--gold); stroke-width: 1.6; opacity: 0.85; }
+.robe-gem { animation: lensPulse 3s ease-in-out infinite; }
+.robe-gem:nth-child(even) { animation-delay: -1.5s; }
+
+/* the ornamented staff */
+.staff-shaft { stroke: url(#brassGrad); stroke-width: 3.5; }
+.staff-band { stroke: #0a0d12; stroke-width: 3; }
+.staff-base { fill: url(#brassGrad); stroke: #05070b; stroke-width: 1; }
+.staff-spike { fill: url(#brassGrad); stroke: #0a0d12; stroke-width: 0.8; }
+.staff-gem { animation: lensPulse 2.6s ease-in-out infinite; animation-delay: -0.9s; }
+
+
+.scan {
+  stroke: var(--ember); stroke-width: 2;
+  transform-box: fill-box; transform-origin: center;
+  opacity: 0; pointer-events: none;
+}
+body.thinking .scan { animation: scanPulse 1.5s ease-out infinite; }
+@keyframes scanPulse {
+  from { transform: scale(0.72); opacity: 0.85; }
+  to   { transform: scale(1.7); opacity: 0; }
+}
+
+body.thinking .aura { animation: auraPulse 1.5s ease-in-out infinite; }
+@keyframes auraPulse { 50% { opacity: 0.55; } }
+
+body.thinking .eye {
+  animation-duration: 1.1s;
+  filter: drop-shadow(0 0 14px rgba(163, 38, 32, 0.9));
+}
+body.thinking .figure-body { animation-duration: 1.8s; }
+
+.readout {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.8px;
+  color: var(--dim); text-transform: uppercase; text-align: center;
+}
+body.thinking .readout { color: var(--ember); }
+
+.presence-caption {
+  margin: 0; font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 2.4px; color: var(--gold); opacity: 0.85; text-transform: uppercase;
+}
+
+/* vox depth controls in the presence panel */
+.presence-vox {
+  width: min(240px, 100%); display: flex; flex-direction: column; gap: 8px;
+  padding: 10px 12px; border: 1px solid var(--line); border-radius: 3px;
+  background: rgba(10, 13, 18, 0.45);
+}
+.pv-title {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 2.6px;
+  color: var(--gold); text-align: center; opacity: 0.9;
+}
+.pv-row {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 1.8px;
+  color: var(--dim);
+}
+.pv-val { color: var(--ember); min-width: 38px; text-align: right; }
+.pv-row input[type="range"] {
+  flex: 1; height: 3px; appearance: none; -webkit-appearance: none;
+  background: linear-gradient(90deg, var(--rust), var(--mech));
+  border-radius: 2px; cursor: pointer;
+}
+.pv-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%;
+  background: #e8ddc8; border: 1px solid var(--rust);
+  box-shadow: 0 0 8px rgba(255, 106, 77, 0.45);
+}
+.pv-row input[type="range"]::-moz-range-thumb {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #e8ddc8; border: 1px solid var(--rust);
+  box-shadow: 0 0 8px rgba(255, 106, 77, 0.45);
+}
+body.vox-live .pv-title { color: #ff6a4d; opacity: 1; }
+
+/* --------------------------- Chat -------------------------------- */
+
+.chat {
+  display: flex; flex-direction: column; min-width: 0;
+  background: radial-gradient(900px 500px at 50% -10%, rgba(20, 25, 34, 0.55), transparent 65%);
+}
+
+.chat-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 22px; border-bottom: 1px solid var(--line-soft);
+}
+.chat-head-title {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 2.6px; color: var(--gold);
+}
+.chat-head-meta {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.4px; color: var(--dim);
+}
+
+.transcript-scroll {
+  flex: 1; min-height: 0; overflow-y: auto; padding: 26px 22px 8px;
+  scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+}
+.transcript-scroll::-webkit-scrollbar { width: 10px; }
+.transcript-scroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 5px; border: 3px solid var(--abyss); }
+
+.transcript { list-style: none; margin: 0 auto; padding: 0; max-width: 860px; }
+
+.msg { margin: 0 0 22px; }
+
+.msg.user { display: flex; justify-content: flex-end; gap: 10px; align-items: flex-end; }
+.msg.user time {
+  font-family: var(--font-mono); font-size: 10px; color: var(--dim); flex: none;
+}
+
+.bubble {
+  margin: 0; max-width: 80%;
+  font-size: 16px; line-height: 1.55; font-weight: 300;
+}
+.msg.user .bubble {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 2px; padding: 11px 15px; color: var(--bone-soft);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.msg.cawl { display: flex; flex-direction: column; }
+.msg.cawl .bubble {
+  border-left: 2px solid var(--mech);
+  padding: 2px 0 2px 15px;
+  color: var(--bone-soft);
+}
+
+.src {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 7px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 2.4px;
+  color: var(--gold);
+}
+.src .glyph {
+  width: 7px; height: 7px; border-radius: 1px;
+  background: var(--mech); transform: rotate(45deg); flex: none;
+}
+.src time { color: var(--dim); letter-spacing: 1px; }
+
+/* typing indicator */
+.msg.cawl.typing .bubble { display: flex; gap: 6px; align-items: center; min-height: 26px; }
+.msg.cawl.typing .bubble i {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--ember);
+  display: inline-block; animation: blink 1.1s ease-in-out infinite;
+}
+.msg.cawl.typing .bubble i:nth-child(2) { animation-delay: 0.15s; }
+.msg.cawl.typing .bubble i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes blink { 0%, 100% { opacity: 0.18; } 50% { opacity: 1; } }
+
+.tools { list-style: none; margin: 8px 0 0; padding: 0 0 0 15px; }
+.tools li {
+  font-family: var(--font-mono); font-size: 11px; line-height: 1.7;
+  color: var(--dim); letter-spacing: 0.4px;
+}
+.tools .t-verb { color: #8a8f97; }
+.tools .ok { color: var(--gold); font-weight: 500; }
+.tools .no { color: var(--mech); font-weight: 500; }
+
+/* replay affordance */
+.msg.cawl .bubble.replayable { cursor: pointer; }
+.msg.cawl .bubble.replayable::after {
+  content: "REPLAY";
+  display: block; margin-top: 6px;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 1.6px; color: var(--dim);
+  opacity: 0.7; transition: color 0.15s;
+}
+.msg.cawl .bubble.replayable:hover::after { color: var(--gold); }
+
+/* -------------------------- Empty state -------------------------- */
+
+.empty {
+  max-width: 860px; margin: 0 auto; padding: 9vh 22px 0;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.empty[hidden] { display: none; }
+
+.empty-cog {
+  width: 34px; height: 34px; color: var(--gold); opacity: 0.7;
+  margin-bottom: 20px; animation: cogSpin 40s linear infinite;
+}
+
+.empty-title {
+  margin: 0 0 8px; font-family: var(--font-display); font-weight: 600;
+  font-size: 24px; letter-spacing: 3px; color: var(--bone);
+}
+.empty-sub {
+  margin: 0 0 24px; font-size: 15px; font-weight: 300; color: var(--dim);
+}
+
+.suggestions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+
+.chip {
+  font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 1px;
+  color: var(--bone); background: var(--panel); border: 1px solid var(--line);
+  border-radius: 2px; padding: 9px 13px; cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.chip:hover { border-color: var(--rust); color: var(--bone-soft); background: var(--panel-2); }
+
+/* -------------------------- Composer ------------------------------ */
+
+.composer {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 22px 18px;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(5, 6, 8, 0.25), rgba(11, 13, 17, 0.8));
+}
+.composer input[type="text"] {
+  flex: 1; min-width: 0;
+  background: var(--panel-2); color: var(--bone-soft);
+  border: 1px solid var(--line); border-radius: 2px;
+  padding: 12px 14px; font-family: var(--font-body); font-size: 16px; font-weight: 300;
+  caret-color: var(--ember);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.composer input[type="text"]::placeholder { color: var(--dim); }
+.composer input[type="text"]:focus {
+  outline: none; border-color: var(--rust);
+  box-shadow: 0 0 0 3px rgba(92, 58, 38, 0.22);
+}
+
+.voice-toggle { display: none; }
+
+.vox-call {
+  flex: none;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
+  color: var(--dim); background: transparent;
+  border: 1px solid var(--line); border-radius: 2px;
+  padding: 13px 12px; cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+.vox-call:hover { color: var(--ember); border-color: var(--rust); }
+.vox-call.live {
+  color: #0b0e13; background: linear-gradient(180deg, #ff6a4d, #a32620);
+  border-color: #ff6a4d;
+  animation: voxCallPulse 1.6s ease-in-out infinite;
+}
+@keyframes voxCallPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 106, 77, 0.5); }
+  50%      { box-shadow: 0 0 14px 3px rgba(255, 106, 77, 0.35); }
+}
+
+.send {
+  flex: none;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 2.6px;
+  color: #e8ddc8; background: linear-gradient(180deg, var(--mech), var(--mech-deep));
+  border: 1px solid rgba(0, 0, 0, 0.5); border-radius: 2px;
+  padding: 13px 20px; cursor: pointer;
+  transition: filter 0.15s, transform 0.1s;
+}
+.send:hover { filter: brightness(1.18); }
+.send:active { transform: translateY(1px); }
+.send:disabled { opacity: 0.5; cursor: default; filter: none; }
+
+/* ------------------------------------------------------------------ */
+/* Configuration modal                                                 */
+/* ------------------------------------------------------------------ */
+
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background: rgba(5, 6, 8, 0.74);
+  backdrop-filter: blur(3px);
+}
+.modal-overlay[hidden] { display: none; }
+
+.modal {
+  width: min(680px, 94vw); max-height: 86vh;
+  display: flex; flex-direction: column;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+}
+.modal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-bottom: 1px solid var(--line);
+}
+.modal-head h2 {
+  margin: 0; font-family: var(--font-display); font-weight: 600;
+  font-size: 15px; letter-spacing: 3px; color: var(--bone);
+}
+.modal-x {
+  background: none; border: none; color: var(--dim);
+  font-size: 16px; line-height: 1; cursor: pointer; padding: 4px 8px;
+  transition: color 0.15s;
+}
+.modal-x:hover { color: var(--ember); }
+
+.modal-body {
+  flex: 1; min-height: 0; overflow-y: auto;
+  padding: 16px 18px 20px;
+  scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+}
+.modal-body::-webkit-scrollbar { width: 10px; }
+.modal-body::-webkit-scrollbar-thumb { background: var(--line); border-radius: 5px; border: 3px solid var(--panel); }
+
+.modal-foot {
+  display: flex; justify-content: flex-end; gap: 10px;
+  padding: 12px 18px; border-top: 1px solid var(--line);
+  background: rgba(10, 13, 18, 0.5);
+}
+
+.set-group { margin: 0 0 20px; }
+.set-group h3 {
+  margin: 0 0 11px; font-family: var(--font-mono); font-size: 10.5px;
+  letter-spacing: 2.4px; color: var(--ember); text-transform: uppercase;
+  border-bottom: 1px solid var(--line-soft); padding-bottom: 6px;
+}
+.set-row { display: flex; flex-direction: column; gap: 4px; margin: 0 0 11px; }
+.set-row label {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.2px;
+  color: var(--dim); text-transform: uppercase;
+}
+.set-row input[type="text"],
+.set-row input[type="number"],
+.set-row input[type="password"],
+.set-row select {
+  background: var(--panel-2); color: var(--bone-soft);
+  border: 1px solid var(--line); border-radius: 2px;
+  padding: 9px 11px; font-family: var(--font-body); font-size: 14px; font-weight: 300;
+  caret-color: var(--ember);
+}
+.set-row input:focus, .set-row select:focus { outline: none; border-color: var(--rust); }
+.set-row .hint { font-size: 11px; color: var(--dim); opacity: 0.85; }
+
+.set-key {
+  display: flex; align-items: center; gap: 8px;
+}
+.set-key .dot-mini {
+  width: 7px; height: 7px; border-radius: 50%; flex: none;
+  background: var(--dim);
+}
+.set-key.ok .dot-mini { background: var(--gold); box-shadow: 0 0 8px rgba(143, 106, 58, 0.7); }
+.set-key.no .dot-mini { background: var(--mech); }
+
+.set-check {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.4px; color: var(--dim);
+  user-select: none;
+}
+.set-check input { accent-color: var(--mech); }
+
+.set-save-note { font-size: 11.5px; color: var(--gold); margin: 4px 0 0; }
+.set-save-note.error { color: var(--ember); }
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                         */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 980px) {
+  .stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: 148px 1fr;
+  }
+  .presence {
+    flex-direction: row; gap: 18px; padding: 12px 18px;
+    border-right: none; border-bottom: 1px solid var(--line);
+  }
+  .presence-frame { flex-direction: row; gap: 20px; }
+  .presence-figure { width: 112px; }
+  .cawl-svg { width: 112px; }
+  .vox { bottom: -10px; height: 16px; }
+  .presence-caption { display: none; }
+  .readout { font-size: 9px; letter-spacing: 1px; max-width: 40vw; }
+}
+
+@media (max-width: 560px) {
+  .brand-sub { display: none; }
+  .ui-link { display: none; }
+  .transcript-scroll { padding: 20px 14px 8px; }
+  .composer { padding: 12px 14px 14px; gap: 8px; }
+  .vox-call { font-size: 9px; letter-spacing: 1px; padding: 13px 8px; }
+  .send { padding: 13px 14px; }
+  .bubble { max-width: 92%; }
+  .msg.cawl .bubble { padding-left: 12px; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                     */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .crest-cog, .empty-cog, .chest-cog, .figure-body, .head, .eye,
+  .tendril, .tendril-tip, .dot, .aura, .scan, .rune-ring,
+  .cawl-img, .mouth, .respirator, .wisp, .vox i,
+  .servo-skull, .beam, .lens-dot, .pack-gem, .robe-gem, .staff-gem,
+  .msg.cawl.typing .bubble i, .vox-call.live {
+    animation: none !important;
+    transition: none !important;
+  }
+  .msg.cawl.typing .bubble i { opacity: 0.6; }
+  body.speaking .vox { opacity: 1; }
+  body.speaking .vox i { height: 10px; }
+}
