@@ -61,20 +61,34 @@ exit /b
 
 :help
 echo.
-echo   C.A.W.L. — Belisarius Cawl, Archmagos Dominus
-echo.
-echo   Usage:  cawl [command]
+echo   ================================================
+echo     C.A.W.L. v1.0 — Archmagos Dominus
+echo     Belisarius Cawl, in service to the Void Dragon
+echo   ================================================
 echo.
 echo   Commands:
-echo     start     Launch the Electron app (default)
-echo     serve     Start the server only (browser at localhost:8123)
-echo     doctor    Run diagnostics and auto-fix
-echo     help      Show this help
 echo.
-echo   Examples:
-echo     cawl              Launch the app
-echo     cawl doctor       Check for problems
-echo     cawl serve        Run server without GUI
+echo     cawl              Launch the Electron app (default)
+echo     cawl start        Launch the Electron app
+echo     cawl serve        Start server only, no GUI (localhost:8123)
+echo     cawl doctor       Run 38 diagnostic checks + auto-fix
+echo     cawl help         Show this help
+echo.
+echo   Skills:
+echo.
+echo     /watch            Analyze any video (YouTube, TikTok, local)
+echo     /wwv              Query WorldWideView geospatial globe
+echo     DeepThink         Step-by-step reasoning (toggle in UI)
+echo     WebFetch          Verify from web before answering
+echo     Verify            Re-check every claim with confidence labels
+echo.
+echo   Config:
+echo.
+echo     cawl serve        then open http://localhost:8123
+echo     CONFIG button     in-app settings for providers, voice, WWV
+echo     cawl doctor       check for problems and auto-fix
+echo.
+echo   Docs:  https://github.com/kristian2240-netizen/cawl
 echo.
 exit /b
 
