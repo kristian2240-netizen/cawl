@@ -1,0 +1,15 @@
+{
+  "name": "cawl",
+  "version": "1.0.0",
+  "description": "C.A.W.L. — Belisarius Cawl, Archmagos Dominus. Electron interface.",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev"
+  },
+  "author": "Void Dragon",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^43.4.1"
+  }
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C.A.W.L.</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0d12;
+    color: #c0a98b;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    -webkit-app-region: drag;
+    user-select: none;
+  }
+  .center { text-align: center; }
+  .glyph {
+    width: 64px; height: 64px;
+    border: 2px solid #8a1d17;
+    border-radius: 50%;
+    margin: 0 auto 24px;
+    display: flex; align-items: center; justify-content: center;
+    animation: spin 4s linear infinite;
+  }
+  .glyph svg { width: 32px; height: 32px; color: #8f6a3a; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  h1 {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    letter-spacing: 6px;
+    color: #c0a98b;
+    margin-bottom: 8px;
+  }
+  .sub {
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #94a0ae;
+    text-transform: uppercase;
+  }
+  .status {
+    margin-top: 28px;
+    font-family: monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #6e4630;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.4; } }
+</style>
+</head>
+<body>
+  <div class="center">
+    <div class="glyph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+      </svg>
+    </div>
+    <h1>C.A.W.L.</h1>
+    <div class="sub">Belisarius Cawl &mdash; Archmagos Dominus</div>
+    <div class="status">INITIALIZING COGITATORS&hellip;</div>
+  </div>
+</body>
+</html>
